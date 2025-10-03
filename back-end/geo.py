@@ -2,30 +2,36 @@
 import json
 import requests
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # чтобы фронтэнд мог делать fetch
 
 app = Flask(__name__)
+CORS(app)  # разрешаем запросы с фронтенда (Next.js)
 
-@app.route("/geo")
+@app.route("/geo", methods=["GET"])
 def get_geo():
+    # Получаем координаты из запроса
     lat = request.args.get("lat")
     lon = request.args.get("lon")
     if not lat or not lon:
-        return jsonify({"error": "Missing lat or lon"}), 400
+        return jsonify({"error": "lat и lon обязательны"}), 400
 
     # Запрос к OpenStreetMap Nominatim
-    url = f"https://api.opencagedata.com/geocode/v1/json?q=43.238949+76.889709&key=YOUR_API_KEY"
-    response = requests.get(url)
-    
-    if response.status_code != 200:
-        return jsonify({"error": "OSM request failed"}), 500
-    
-    data = response.json()
-    
-    # Сохраняем результат в JSON файл
-    with open("geolocation_result.json", "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
-    
-    return jsonify({"message": "Geo data saved", "data": data})
+    url = f"https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=json"
+    try:
+        response = requests.get(url, headers={"User-Agent": "Mozilla/5.0"})
+        response.raise_for_status()
+        data = response.json()
+
+        # Сохраняем результат на сервере
+        with open("geo_result.json", "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+
+        # Возвращаем фронтенду
+        return jsonify({"message": "Geo данные сохранены", "data": data})
+
+    except requests.RequestException as e:
+        return jsonify({"error": f"Ошибка при запросе к Nominatim: {str(e)}"}), 500
+
 
 if __name__ == "__main__":
     app.run(debug=True)

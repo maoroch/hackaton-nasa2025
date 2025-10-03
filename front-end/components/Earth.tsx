@@ -292,10 +292,37 @@ const Earth = ({ className }: EarthProps) => {
                     console.log('Direct hit at:', targetPoint);
                     isAsteroidMoving = false;
                 }
+                if (isAsteroidMoving) {
+    time += params.asteroidSpeed;
+    if (time <= 1) {
+        const arcPosition = calculateArcPosition(
+            startPosition, 
+            targetPoint, 
+            time, 
+            params.trajectoryArc
+        );
+
+        // New: Prevent penetration (Earth center at (0,0,0), radius 10)
+        const earthCenter = new THREE.Vector3(0, 0, 0);
+        const distanceToCenter = arcPosition.distanceTo(earthCenter);
+        const earthRadius = 10;
+        const asteroidRadius = 0.5;
+        if (distanceToCenter < earthRadius + asteroidRadius) {
+            // Clamp to surface: normalize direction and set to exact impact distance
+            arcPosition.normalize().multiplyScalar(earthRadius + asteroidRadius * 0.1); // Small offset to avoid clipping
+            isAsteroidMoving = false; // Stop movement on "collision"
+            console.log('Impact detected - stopped at surface');
+        }
+
+        asteroid.position.copy(arcPosition);
+
+        // ... (rest of your code: rotation, lookAt, color/heat/particles, etc.)
+    }
+}
             }
         }
 
-        earth.rotateY((2 * Math.PI) / (24 * 60));
+        earth.rotateY((2 * Math.PI) / (100000000 * 60));
         renderer.render(scene, camera);
     };
 

@@ -2,10 +2,12 @@
 
 import { useState } from 'react';
 import InfoAsteroids from './InfoAsteroids';
+import MathAsteroids from './AsteroidsMath';
 import Link from 'next/link';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMathOpen, setIsMathOpen] = useState(false);
 
   return (
     <>
@@ -40,6 +42,12 @@ const Navbar: React.FC = () => {
                 className="px-4 py-2 rounded-full bg-cyan-600 hover:bg-cyan-700 text-white font-inter text-sm transition-all duration-200 transform hover:scale-105"
               >
                 {isOpen ? '✕ Close Asteroids' : 'Asteroid Data'}
+              </button>
+              <button
+                onClick={() => setIsMathOpen(!isMathOpen)}
+                className="px-4 py-2 rounded-full bg-cyan-600 hover:bg-cyan-700 text-white font-inter text-sm transition-all duration-200 transform hover:scale-105"
+              >
+                {isMathOpen ? '✕ Close Math' : 'Asteroid Math'}
               </button>
             </div>
 
@@ -102,6 +110,15 @@ const Navbar: React.FC = () => {
                 >
                   About Hackathon
                 </Link>
+                <button
+                  onClick={() => {
+                    setIsMathOpen(!isMathOpen);
+                    setIsOpen(false);
+                  }}
+                  className="text-gray-300 hover:text-cyan-400 transition-colors duration-200 font-inter text-left"
+                >
+                  Asteroid Math
+                </button>
               </div>
             </div>
           )}
@@ -128,6 +145,28 @@ const Navbar: React.FC = () => {
           </div>
         </div>
         <InfoAsteroids />
+      </div>
+
+      {/* Sliding Panel for MathAsteroids */}
+      <div
+        className={`fixed left-0 top-0 h-full w-full sm:w-96 bg-gradient-to-b from-gray-900 to-blue-900 text-white shadow-2xl transform transition-transform duration-300 ease-in-out overflow-y-auto z-20 ${
+          isMathOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="sticky top-0 bg-gray-900/80 backdrop-blur-sm p-4 border-b border-cyan-700/50">
+          <div className="flex justify-between items-center">
+            <h2 className="text-xl font-bold font-orbitron text-cyan-300">
+              Asteroid Calculations
+            </h2>
+            <button
+              onClick={() => setIsMathOpen(false)}
+              className="p-2 hover:bg-gray-700/50 rounded-full text-cyan-300 transition-colors duration-200"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+        <MathAsteroids />
       </div>
     </>
   );
