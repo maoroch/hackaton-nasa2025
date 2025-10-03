@@ -1,0 +1,30 @@
+{
+  "place_id": 197574397,
+  "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+  "osm_type": "relation",
+  "osm_id": 13050472,
+  "lat": "32.1325128",
+  "lon": "59.9470327",
+  "class": "boundary",
+  "type": "administrative",
+  "place_rank": 14,
+  "importance": 0.2133833348592355,
+  "addresstype": "city",
+  "name": "دهستان سهل آباد",
+  "display_name": "دهستان سهل آباد, بخش شوسف, شهرستان نهبندان, استان خراسان جنوبی, ایران",
+  "address": {
+    "city": "دهستان سهل آباد",
+    "district": "بخش شوسف",
+    "county": "شهرستان نهبندان",
+    "state": "استان خراسان جنوبی",
+    "ISO3166-2-lvl4": "IR-29",
+    "country": "ایران",
+    "country_code": "ir"
+  },
+  "boundingbox": [
+    "31.9209874",
+    "32.3353052",
+    "59.6366637",
+    "60.2895354"
+  ]
+}

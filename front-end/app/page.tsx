@@ -1,5 +1,5 @@
-import Earth from '@/components/Earth';
 import Navbar from "@/components/Navbar";
+import Earth from '@/components/Earth';
 
 export default function Home() {
   return (

@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
             {/* Desktop Navigation Links */}
             <div className="hidden md:flex items-center space-x-6">
               <Link
-                href="/"
+                href="/geo"
                 className="text-gray-300 hover:text-cyan-400 transition-colors duration-200 font-inter"
               >
                 Earth 3D
