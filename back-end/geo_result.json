@@ -1,29 +1,35 @@
 {
-  "place_id": 188998236,
-  "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-  "osm_type": "relation",
-  "osm_id": 222946,
-  "lat": "45.4865845",
-  "lon": "54.7700279",
-  "class": "boundary",
-  "type": "administrative",
-  "place_rank": 12,
-  "importance": 0.41222753344524565,
-  "addresstype": "county",
-  "name": "Бейнеу ауданы",
-  "display_name": "Бейнеу ауданы, Маңғыстау облысы, 130100, Қазақстан",
-  "address": {
-    "county": "Бейнеу ауданы",
-    "state": "Маңғыстау облысы",
-    "ISO3166-2-lvl4": "KZ-47",
-    "postcode": "130100",
-    "country": "Қазақстан",
-    "country_code": "kz"
-  },
-  "boundingbox": [
-    "44.4528649",
-    "46.5201311",
-    "52.6975231",
-    "56.7441058"
-  ]
+  "lat": 34.431444174114986,
+  "lon": 100.04052520953103,
+  "biome": "Unknown",
+  "osm": {
+    "place_id": 206292556,
+    "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+    "osm_type": "relation",
+    "osm_id": 4495388,
+    "lat": "34.4793066",
+    "lon": "100.2367862",
+    "class": "boundary",
+    "type": "administrative",
+    "place_rank": 12,
+    "importance": 0.40491441839008824,
+    "addresstype": "city",
+    "name": "玛沁县 རྨ་ཆེན་རྫོང།",
+    "display_name": "玛沁县 རྨ་ཆེན་རྫོང།, 果洛藏族自治州 མགོ་ལོག་བོད་རིགས་རང་སྐྱོང་ཁུལ།, 青海省, 814000, 中国",
+    "address": {
+      "city": "玛沁县 རྨ་ཆེན་རྫོང།",
+      "region": "果洛藏族自治州 མགོ་ལོག་བོད་རིགས་རང་སྐྱོང་ཁུལ།",
+      "state": "青海省",
+      "ISO3166-2-lvl4": "CN-QH",
+      "postcode": "814000",
+      "country": "中国",
+      "country_code": "cn"
+    },
+    "boundingbox": [
+      "33.7222720",
+      "35.2962272",
+      "98.8078581",
+      "100.9771761"
+    ]
+  }
 }
