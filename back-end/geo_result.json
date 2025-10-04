@@ -1,5 +1,245 @@
 [
   {
+    "lat": 30.439698719598347,
+    "lon": 93.99085400982696,
+    "eco_name": "Northeastern Himalayan subalpine conifer forests",
+    "biome": 5.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T04:17:13.671715"
+  },
+  {
+    "lat": 24.078728925451088,
+    "lon": 103.9076845420727,
+    "eco_name": "Yunnan Plateau subtropical evergreen forests",
+    "biome": 1.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T04:16:44.082570"
+  },
+  {
+    "lat": 36.90673377263374,
+    "lon": 104.11284677693388,
+    "eco_name": "Alashan Plateau semi-desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T04:16:36.247816"
+  },
+  {
+    "lat": 45.585877537015605,
+    "lon": 48.96712903126659,
+    "eco_name": "Lake",
+    "biome": 98.0,
+    "realm": null,
+    "timestamp": "2025-10-05T04:16:08.156095"
+  },
+  {
+    "lat": 48.9427221195787,
+    "lon": 57.15465498437289,
+    "eco_name": "Kazakh semi-desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T04:15:45.332625"
+  },
+  {
+    "lat": 38.93954498898501,
+    "lon": 72.04782859084709,
+    "eco_name": "Rock and Ice",
+    "biome": 99.0,
+    "realm": null,
+    "timestamp": "2025-10-05T04:15:38.374921"
+  },
+  {
+    "lat": -22.257855129932253,
+    "lon": 132.4563952550971,
+    "eco_name": "Central Ranges xeric scrub",
+    "biome": 13.0,
+    "realm": "AA",
+    "timestamp": "2025-10-05T04:15:22.493603"
+  },
+  {
+    "lat": -24.04375455942983,
+    "lon": 142.4991166367588,
+    "eco_name": "Simpson desert",
+    "biome": 13.0,
+    "realm": "AA",
+    "timestamp": "2025-10-05T04:14:01.798530"
+  },
+  {
+    "lat": -24.353912393203643,
+    "lon": 131.41943144105008,
+    "eco_name": "Great Sandy-Tanami desert",
+    "biome": 13.0,
+    "realm": "AA",
+    "timestamp": "2025-10-05T04:13:46.348396"
+  },
+  {
+    "lat": 41.25495595422735,
+    "lon": 103.01157928902765,
+    "eco_name": "Alashan Plateau semi-desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T04:10:58.603642"
+  },
+  {
+    "lat": 34.302991777175365,
+    "lon": 98.47018102871658,
+    "eco_name": "Tibetan Plateau alpine shrublands and meadows",
+    "biome": 10.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T04:10:34.937531"
+  },
+  {
+    "lat": 36.22652736029019,
+    "lon": 139.02249840622667,
+    "eco_name": "Taiheiyo montane deciduous forests",
+    "biome": 4.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T04:10:26.572046"
+  },
+  {
+    "lat": 3.8988899915143804,
+    "lon": 78.05215699741109,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T04:09:37.659078"
+  },
+  {
+    "lat": 36.27117930311249,
+    "lon": -20.916292238226603,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T04:09:35.753415"
+  },
+  {
+    "lat": 39.877808548530496,
+    "lon": 1.0144077004492267,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T04:09:35.718535"
+  },
+  {
+    "lat": 33.75567377878753,
+    "lon": 168.05749654080458,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T04:09:31.635027"
+  },
+  {
+    "lat": 50.65549519834941,
+    "lon": 70.55656260193554,
+    "eco_name": "Kazakh steppe",
+    "biome": 8.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T04:09:29.254599"
+  },
+  {
+    "lat": 41.44827543753353,
+    "lon": 81.10575843288103,
+    "eco_name": "Taklimakan desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T04:09:02.590346"
+  },
+  {
+    "lat": 45.25983983857048,
+    "lon": 68.72822797539008,
+    "eco_name": "Central Asian northern desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T04:08:59.159503"
+  },
+  {
+    "lat": 19.813292216175043,
+    "lon": 62.94363507968462,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T04:08:58.416580"
+  },
+  {
+    "lat": 61.14407911891112,
+    "lon": 152.27183927935724,
+    "eco_name": "Cherskii-Kolyma mountain tundra",
+    "biome": 11.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T04:08:55.604370"
+  },
+  {
+    "lat": 40.11460170775144,
+    "lon": 95.52736039149424,
+    "eco_name": "Alashan Plateau semi-desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T04:08:07.463599"
+  },
+  {
+    "lat": 39.64640806708979,
+    "lon": 118.02443690224932,
+    "eco_name": "Huang He Plain mixed forests",
+    "biome": 4.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T04:07:57.182924"
+  },
+  {
+    "lat": 54.646015022579256,
+    "lon": 104.68257717970049,
+    "eco_name": "East Siberian taiga",
+    "biome": 6.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T04:06:58.790116"
+  },
+  {
+    "lat": 46.88755744421243,
+    "lon": 97.02958403634108,
+    "eco_name": "Gobi Lakes Valley desert steppe",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T04:06:51.819275"
+  },
+  {
+    "lat": 23.541622956899246,
+    "lon": 127.48573380988057,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T04:06:47.981181"
+  },
+  {
+    "lat": 27.315613437128604,
+    "lon": 99.29659101572129,
+    "eco_name": "Nujiang Langcang Gorge alpine conifer and mixed forests",
+    "biome": 5.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T04:03:35.585362"
+  },
+  {
+    "lat": 31.69545120543996,
+    "lon": 93.19585703372131,
+    "eco_name": "Tibetan Plateau alpine shrublands and meadows",
+    "biome": 10.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T04:02:32.897446"
+  },
+  {
+    "lat": 22.16298959293549,
+    "lon": 80.15858596095902,
+    "eco_name": "Eastern highlands moist deciduous forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T04:01:42.580140"
+  },
+  {
+    "lat": 24.61927093372134,
+    "lon": 105.26425770776218,
+    "eco_name": "Yunnan Plateau subtropical evergreen forests",
+    "biome": 1.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T04:00:31.651339"
+  },
+  {
     "lat": 26.657960617053376,
     "lon": 93.3965125477869,
     "eco_name": "Brahmaputra Valley semi-evergreen forests",
