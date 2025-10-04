@@ -3,9 +3,14 @@ import json
 from flask_cors import CORS
 import math
 from shapely.geometry import shape, Point
+from datetime import datetime
+import os
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:3000"])  # Явно указываем фронтенд
+CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:3000"])
+
+# Файл для сохранения результатов
+GEO_RESULTS_FILE = "geo_result.json"
 
 # Загружаем заранее подготовленные данные астероидов
 try:
@@ -41,6 +46,47 @@ except FileNotFoundError:
     print("Warning: biomes.geojson not found")
     biomes = []
 
+# Функция для загрузки существующих результатов
+def load_geo_results():
+    if os.path.exists(GEO_RESULTS_FILE):
+        try:
+            with open(GEO_RESULTS_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                # Убедимся, что возвращаем список, а не словарь
+                if isinstance(data, list):
+                    return data
+                elif isinstance(data, dict):
+                    # Если файл содержит словарь, преобразуем в список
+                    return [data]
+                else:
+                    return []
+        except (json.JSONDecodeError, Exception) as e:
+            print(f"Warning: Could not load {GEO_RESULTS_FILE}: {e}")
+            return []
+    return []
+
+# Функция для сохранения результатов
+def save_geo_result(result_data):
+    try:
+        # Загружаем существующие результаты
+        results = load_geo_results()
+        
+        # Добавляем timestamp к новому результату
+        result_data["timestamp"] = datetime.now().isoformat()
+        
+        # Добавляем новый результат в начало списка
+        results.insert(0, result_data)
+        
+        # Сохраняем обратно в файл
+        with open(GEO_RESULTS_FILE, "w", encoding="utf-8") as f:
+            json.dump(results, f, indent=2, ensure_ascii=False)
+        
+        print(f"✅ Результат сохранен в {GEO_RESULTS_FILE}")
+        return True
+    except Exception as e:
+        print(f"❌ Ошибка при сохранении результата: {e}")
+        return False
+
 @app.route("/")
 def home():
     return jsonify({"message": "Asteroid API работает 🚀", "status": "ok"})
@@ -73,14 +119,42 @@ def get_geo():
         return jsonify({"error": "lat и lon обязательны"}), 400
 
     biome_info = find_biome(lat, lon)
-
-    return jsonify({
+    
+    # Формируем данные для сохранения
+    result_data = {
         "lat": lat,
         "lon": lon,
         "eco_name": biome_info["eco_name"],
         "biome": biome_info["biome"],
         "realm": biome_info["realm"]
-    })
+    }
+    
+    # Сохраняем результат
+    save_geo_result(result_data)
+
+    return jsonify(result_data)
+
+@app.route("/api/geo/results", methods=["GET"])
+def get_geo_results():
+    """Эндпоинт для получения всех сохраненных результатов"""
+    try:
+        results = load_geo_results()
+        return jsonify({
+            "count": len(results),
+            "results": results
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/api/geo/results/clear", methods=["DELETE"])
+def clear_geo_results():
+    """Эндпоинт для очистки всех результатов"""
+    try:
+        with open(GEO_RESULTS_FILE, "w", encoding="utf-8") as f:
+            json.dump([], f, indent=2)
+        return jsonify({"message": "Все результаты очищены"})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 # ---------- helper functions ----------
 

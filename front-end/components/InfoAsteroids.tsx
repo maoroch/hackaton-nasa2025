@@ -1,3 +1,4 @@
+// components/InfoAsteroids.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -20,6 +21,11 @@ export interface Asteroid {
   is_potentially_hazardous_asteroid: boolean;
 }
 
+interface ApiResponse {
+  count: number;
+  asteroids: Asteroid[];
+}
+
 const AsteroidsList: React.FC = () => {
   const [asteroids, setAsteroids] = useState<Asteroid[]>([]);
   const [loading, setLoading] = useState(true);
@@ -32,8 +38,8 @@ const AsteroidsList: React.FC = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const data: Asteroid[] = await response.json();
-        setAsteroids(data);
+        const data: ApiResponse = await response.json();
+        setAsteroids(data.asteroids); // Исправлено здесь
         setError(null);
       } catch (err) {
         console.error("Failed to fetch asteroids:", err);

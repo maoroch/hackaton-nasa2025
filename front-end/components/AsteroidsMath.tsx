@@ -29,6 +29,11 @@ type Asteroid = {
   crater: CraterData;
 };
 
+interface ApiResponse {
+  count: number;
+  asteroids: Asteroid[];
+}
+
 export default function AsteroidsMath() {
   const [asteroids, setAsteroids] = useState<Asteroid[]>([]);
   const [loading, setLoading] = useState(true);
@@ -36,8 +41,8 @@ export default function AsteroidsMath() {
   useEffect(() => {
     fetch("http://127.0.0.1:5000/api/asteroids/all")
       .then((res) => res.json())
-      .then((data: Asteroid[]) => {
-        setAsteroids(data);
+      .then((data: ApiResponse) => { // Изменено здесь
+        setAsteroids(data.asteroids); // Изменено здесь
         setLoading(false);
       })
       .catch((err) => {

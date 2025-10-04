@@ -1,35 +1,26 @@
-{
-  "lat": 34.431444174114986,
-  "lon": 100.04052520953103,
-  "biome": "Unknown",
-  "osm": {
-    "place_id": 206292556,
-    "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
-    "osm_type": "relation",
-    "osm_id": 4495388,
-    "lat": "34.4793066",
-    "lon": "100.2367862",
-    "class": "boundary",
-    "type": "administrative",
-    "place_rank": 12,
-    "importance": 0.40491441839008824,
-    "addresstype": "city",
-    "name": "玛沁县 རྨ་ཆེན་རྫོང།",
-    "display_name": "玛沁县 རྨ་ཆེན་རྫོང།, 果洛藏族自治州 མགོ་ལོག་བོད་རིགས་རང་སྐྱོང་ཁུལ།, 青海省, 814000, 中国",
-    "address": {
-      "city": "玛沁县 རྨ་ཆེན་རྫོང།",
-      "region": "果洛藏族自治州 མགོ་ལོག་བོད་རིགས་རང་སྐྱོང་ཁུལ།",
-      "state": "青海省",
-      "ISO3166-2-lvl4": "CN-QH",
-      "postcode": "814000",
-      "country": "中国",
-      "country_code": "cn"
-    },
-    "boundingbox": [
-      "33.7222720",
-      "35.2962272",
-      "98.8078581",
-      "100.9771761"
-    ]
+[
+  {
+    "lat": 55.00945524724584,
+    "lon": 28.581670408217295,
+    "eco_name": "Sarmatic mixed forests",
+    "biome": 4.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T02:38:56.868551"
+  },
+  {
+    "lat": 55.01596083202186,
+    "lon": 66.40169947053936,
+    "eco_name": "Kazakh forest steppe",
+    "biome": 8.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T02:38:44.326801"
+  },
+  {
+    "lat": 45.78125745935035,
+    "lon": 71.28390934642604,
+    "eco_name": "Central Asian northern desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T02:24:32.987898"
   }
-}
+]
