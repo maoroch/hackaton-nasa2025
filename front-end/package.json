@@ -14,9 +14,11 @@
     "@fontsource/space-mono": "^5.2.9",
     "@react-three/drei": "^10.7.6",
     "@react-three/fiber": "^9.3.0",
+    "@react-three/postprocessing": "^3.0.4",
     "dat.gui": "^0.7.9",
     "fiber": "^1.0.4",
     "next": "15.5.4",
+    "postprocessing": "^6.37.8",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "three": "^0.180.0"

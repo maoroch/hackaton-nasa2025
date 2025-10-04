@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter, Space_Mono, Orbitron } from 'next/font/google'
 import './globals.css'
 
+
 const inter = Inter({ 
   subsets: ['latin', 'cyrillic'],
   variable: '--font-inter'

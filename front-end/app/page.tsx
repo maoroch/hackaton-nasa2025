@@ -1,11 +1,13 @@
 import Navbar from "@/components/Navbar";
-import Earth from '@/components/FinderGeo';
+import Main from '@/components/Main';
+import Cursor from '@/components/Сursor'
 
 export default function Home() {
   return (
     <main className="w-full h-screen">
       <Navbar />
-      <Earth className="w-full h-full" />
+      <Cursor />
+      <Main />
     </main>
   );
 }

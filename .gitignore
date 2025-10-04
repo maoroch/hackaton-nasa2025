@@ -2,6 +2,9 @@
 __pycache__/
 *.pyc
 venv/
+geo_result.json
+biomes.geojson
+asteroids.json
 
 # Node
 node_modules/
