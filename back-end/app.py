@@ -145,6 +145,9 @@ def get_geo_results():
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+    
+
 
 @app.route("/api/geo/results/clear", methods=["DELETE"])
 def clear_geo_results():
@@ -155,6 +158,28 @@ def clear_geo_results():
         return jsonify({"message": "Все результаты очищены"})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+        
+
+@app.route("/api/asteroids/<name>", methods=["GET"])
+def get_asteroid_by_name(name):
+    """Эндпоинт для получения конкретного астероида по имени"""
+    try:
+        # Находим астероид по имени (игнорируем регистр и пробелы)
+        asteroid = None
+        for a in asteroids_data:
+            if a.get("name", "").lower().replace(" ", "") == name.lower().replace(" ", ""):
+                asteroid = a
+                break
+        
+        if not asteroid:
+            return jsonify({"error": "Asteroid not found"}), 404
+        
+        formatted_asteroid = format_asteroid(asteroid)
+        return jsonify(formatted_asteroid)
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 # ---------- helper functions ----------
 
@@ -209,6 +234,9 @@ def format_asteroid(a):
             "name": a.get("name", "Unknown"),
             "error": "Failed to format asteroid data"
         }
+    
+
+
     
 
 def find_biome(lat: float, lon: float):

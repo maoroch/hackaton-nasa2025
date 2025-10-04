@@ -1,5 +1,445 @@
 [
   {
+    "lat": 26.657960617053376,
+    "lon": 93.3965125477869,
+    "eco_name": "Brahmaputra Valley semi-evergreen forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T03:56:55.211411"
+  },
+  {
+    "lat": 29.967950418138358,
+    "lon": 104.87072996665378,
+    "eco_name": "Sichuan Basin evergreen broadleaf forests",
+    "biome": 4.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:56:48.334862"
+  },
+  {
+    "lat": 35.705028602148424,
+    "lon": 166.7146675688072,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T03:56:03.725571"
+  },
+  {
+    "lat": 12.320793865423951,
+    "lon": 90.05427383522849,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T03:56:02.367917"
+  },
+  {
+    "lat": 48.978978513789045,
+    "lon": -12.960315728326078,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T03:55:37.498315"
+  },
+  {
+    "lat": 68.58622490291584,
+    "lon": 118.13883724330633,
+    "eco_name": "East Siberian taiga",
+    "biome": 6.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:55:16.340272"
+  },
+  {
+    "lat": 49.414976793457676,
+    "lon": 94.74970385729075,
+    "eco_name": "Selenge-Orkhon forest steppe",
+    "biome": 8.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:53:10.027590"
+  },
+  {
+    "lat": 22.104814641893995,
+    "lon": 94.5525562003432,
+    "eco_name": "Irrawaddy moist deciduous forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T03:52:49.024046"
+  },
+  {
+    "lat": 46.35666262426153,
+    "lon": 88.17733441545163,
+    "eco_name": "Junggar Basin semi-desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:46:20.366680"
+  },
+  {
+    "lat": 51.332873461176135,
+    "lon": 77.8367004535614,
+    "eco_name": "Kazakh steppe",
+    "biome": 8.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:45:56.539145"
+  },
+  {
+    "lat": 25.97473449832836,
+    "lon": 107.18018415173887,
+    "eco_name": "Guizhou Plateau broadleaf and mixed forests",
+    "biome": 1.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:45:28.142109"
+  },
+  {
+    "lat": 30.18187754028829,
+    "lon": 94.91233763099436,
+    "eco_name": "Northeastern Himalayan subalpine conifer forests",
+    "biome": 5.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:45:05.278714"
+  },
+  {
+    "lat": 40.460406463442204,
+    "lon": 109.7932387629226,
+    "eco_name": "Ordos Plateau steppe",
+    "biome": 10.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:35:57.912781"
+  },
+  {
+    "lat": 46.821556207059,
+    "lon": 102.03195097430307,
+    "eco_name": "Selenge-Orkhon forest steppe",
+    "biome": 8.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:35:53.929861"
+  },
+  {
+    "lat": 57.09274578623644,
+    "lon": 119.39574076844043,
+    "eco_name": "East Siberian taiga",
+    "biome": 6.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:35:37.689854"
+  },
+  {
+    "lat": 62.78354844487791,
+    "lon": 142.3587567501889,
+    "eco_name": "Cherskii-Kolyma mountain tundra",
+    "biome": 11.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:35:34.563512"
+  },
+  {
+    "lat": 12.867602991098195,
+    "lon": 163.31792541997783,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T03:35:32.344901"
+  },
+  {
+    "lat": 33.1173528290665,
+    "lon": 93.90159371280927,
+    "eco_name": "Tibetan Plateau alpine shrublands and meadows",
+    "biome": 10.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:35:30.614177"
+  },
+  {
+    "lat": 22.295123043741057,
+    "lon": 102.3829393483196,
+    "eco_name": "Northern Indochina subtropical forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T03:32:52.378365"
+  },
+  {
+    "lat": 35.61738604209142,
+    "lon": 110.05443326667549,
+    "eco_name": "Central China loess plateau mixed forests",
+    "biome": 4.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:29:53.091791"
+  },
+  {
+    "lat": 30.1102116981481,
+    "lon": 89.78213320595074,
+    "eco_name": "Tibetan Plateau alpine shrublands and meadows",
+    "biome": 10.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:29:08.367156"
+  },
+  {
+    "lat": 27.12526038157919,
+    "lon": 104.03177190235075,
+    "eco_name": "Yunnan Plateau subtropical evergreen forests",
+    "biome": 1.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:28:58.493033"
+  },
+  {
+    "lat": 5.00030881461872,
+    "lon": 110.26727600832537,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T03:28:54.063813"
+  },
+  {
+    "lat": -24.071690366636886,
+    "lon": 101.77557592814534,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T03:28:48.688658"
+  },
+  {
+    "lat": -24.071689392693813,
+    "lon": 101.77557485876606,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T03:28:48.472281"
+  },
+  {
+    "lat": -24.071687775647405,
+    "lon": 101.77557308326607,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T03:28:48.319090"
+  },
+  {
+    "lat": -24.071684440448678,
+    "lon": 101.77556942125307,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T03:28:48.059570"
+  },
+  {
+    "lat": 27.81522434264199,
+    "lon": 97.40392185582921,
+    "eco_name": "Eastern Himalayan alpine shrub and meadows",
+    "biome": 10.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:28:45.070503"
+  },
+  {
+    "lat": 23.41082973445583,
+    "lon": 102.40549556863375,
+    "eco_name": "Northern Indochina subtropical forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T03:28:40.877033"
+  },
+  {
+    "lat": 50.323858348246844,
+    "lon": -89.02059004253641,
+    "eco_name": "Central Canadian Shield forests",
+    "biome": 6.0,
+    "realm": "NA",
+    "timestamp": "2025-10-05T03:28:08.170467"
+  },
+  {
+    "lat": 56.98765535487399,
+    "lon": -102.3498076249602,
+    "eco_name": "Lake",
+    "biome": 98.0,
+    "realm": null,
+    "timestamp": "2025-10-05T03:28:05.390400"
+  },
+  {
+    "lat": 48.11033840476984,
+    "lon": -104.15797858124422,
+    "eco_name": "Northern short grasslands",
+    "biome": 8.0,
+    "realm": "NA",
+    "timestamp": "2025-10-05T03:27:37.859652"
+  },
+  {
+    "lat": 51.256304663366485,
+    "lon": -179.8949291729097,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T03:27:36.160376"
+  },
+  {
+    "lat": 52.44173241784164,
+    "lon": -153.02755536367695,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T03:27:34.443546"
+  },
+  {
+    "lat": 37.08095780955418,
+    "lon": -131.5833588482613,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T03:27:32.762960"
+  },
+  {
+    "lat": 27.172384829728983,
+    "lon": -145.7701360273413,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T03:27:04.569788"
+  },
+  {
+    "lat": 15.959712641434663,
+    "lon": 87.52425376818896,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T03:26:52.240952"
+  },
+  {
+    "lat": 3.320016318945477,
+    "lon": 90.00771409254808,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T03:26:45.242707"
+  },
+  {
+    "lat": 13.449956871366822,
+    "lon": 85.95236645103665,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T03:26:42.677356"
+  },
+  {
+    "lat": 22.772676085845006,
+    "lon": 106.97982502420078,
+    "eco_name": "South China-Vietnam subtropical evergreen forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T03:26:36.077759"
+  },
+  {
+    "lat": 44.10320896508283,
+    "lon": 128.3724395068587,
+    "eco_name": "Manchurian mixed forests",
+    "biome": 4.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:16:05.462126"
+  },
+  {
+    "lat": 18.186215904782955,
+    "lon": 150.3094513880326,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T03:16:01.602241"
+  },
+  {
+    "lat": 44.245337599760305,
+    "lon": 26.736847916914133,
+    "eco_name": "East European forest steppe",
+    "biome": 4.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:15:41.576713"
+  },
+  {
+    "lat": 51.834004998727195,
+    "lon": -166.45510079569016,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T03:13:35.597564"
+  },
+  {
+    "lat": 44.602578964640365,
+    "lon": 139.02581071534576,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T03:13:30.332518"
+  },
+  {
+    "lat": 42.7115554199916,
+    "lon": 111.50693270739025,
+    "eco_name": "Eastern Gobi desert steppe",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:13:14.940715"
+  },
+  {
+    "lat": 25.00709151423436,
+    "lon": 86.50422437000282,
+    "eco_name": "Chhota-Nagpur dry deciduous forests",
+    "biome": 2.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T03:13:04.118097"
+  },
+  {
+    "lat": 35.48737235286013,
+    "lon": 93.09617582568663,
+    "eco_name": "Central Tibetan Plateau alpine steppe",
+    "biome": 10.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:12:41.395607"
+  },
+  {
+    "lat": 47.1403410361963,
+    "lon": 106.63867254298691,
+    "eco_name": "Mongolian-Manchurian grassland",
+    "biome": 8.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:04:19.166204"
+  },
+  {
+    "lat": 43.103051399740046,
+    "lon": 94.81533456650114,
+    "eco_name": "Tian Shan montane steppe and meadows",
+    "biome": 10.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T03:04:01.726308"
+  },
+  {
+    "lat": 40.125964254302986,
+    "lon": 111.88476793830206,
+    "eco_name": "Ordos Plateau steppe",
+    "biome": 10.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T02:54:00.752490"
+  },
+  {
+    "lat": 49.25836173759269,
+    "lon": 119.9846469079438,
+    "eco_name": "Mongolian-Manchurian grassland",
+    "biome": 8.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T02:53:59.518552"
+  },
+  {
+    "lat": 83.77682617180704,
+    "lon": 168.3142218975598,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T02:53:58.425034"
+  },
+  {
+    "lat": 24.587106058584453,
+    "lon": -85.38101448771631,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T02:53:57.537237"
+  },
+  {
+    "lat": 38.80812805551875,
+    "lon": 92.98486004648396,
+    "eco_name": "Qaidam Basin semi-desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T02:53:55.029623"
+  },
+  {
     "lat": 29.325905005652835,
     "lon": 99.77400910882335,
     "eco_name": "Southeast Tibet shrublands and meadows",

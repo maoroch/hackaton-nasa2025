@@ -4,10 +4,12 @@ import { useState } from 'react';
 import InfoAsteroids from './InfoAsteroids';
 import MathAsteroids from './AsteroidsMath';
 import Link from 'next/link';
+import { useAsteroid } from './context/AsteroidContext';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMathOpen, setIsMathOpen] = useState(false);
+  const { selectedAsteroid } = useAsteroid();
 
   return (
     <>
@@ -23,20 +25,20 @@ const Navbar: React.FC = () => {
               <span className="text-lg font-light">🏠</span>
             </Link>
 
-            {/* Asteroid Data Button */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="px-4 py-2 rounded-xl bg-white/5 hover:bg-cyan-500/20 text-white/90 hover:text-cyan-300 font-light text-sm transition-all duration-200 border border-white/10 hover:border-cyan-400/30"
-            >
-              {isOpen ? '✕ Close' : 'Asteroids'}
-            </button>
-
             {/* Asteroid Math Button */}
             <button
               onClick={() => setIsMathOpen(!isMathOpen)}
               className="px-4 py-2 rounded-xl bg-white/5 hover:bg-cyan-500/20 text-white/90 hover:text-cyan-300 font-light text-sm transition-all duration-200 border border-white/10 hover:border-cyan-400/30"
             >
               {isMathOpen ? '✕ Close' : 'Calculations'}
+            </button>
+
+            {/* Asteroid Data Button */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="px-4 py-2 rounded-xl bg-white/5 hover:bg-cyan-500/20 text-white/90 hover:text-cyan-300 font-light text-sm transition-all duration-200 border border-white/10 hover:border-cyan-400/30"
+            >
+              {isOpen ? '✕ Close' : 'Asteroids'}
             </button>
 
             {/* Additional Links */}
@@ -57,6 +59,14 @@ const Navbar: React.FC = () => {
         </div>
       </nav>
 
+      {/* Баннер выбранного астероида */}
+      {selectedAsteroid && (
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-cyan-900/80 backdrop-blur-sm text-white p-4 rounded-lg border border-cyan-400 z-40">
+          <h3 className="font-bold text-cyan-300">✅ Выбран астероид: {selectedAsteroid.name}</h3>
+          <p className="text-sm text-cyan-200">Кликните на Землю чтобы имитировать удар!</p>
+        </div>
+      )}
+
       {/* Sliding Panel for InfoAsteroids */}
       <div
         className={`fixed right-0 top-0 h-full w-full sm:w-96 bg-gradient-to-b from-gray-900/95 to-blue-900/95 backdrop-blur-xl text-white transform transition-transform duration-300 ease-in-out overflow-y-auto z-40 ${
@@ -76,6 +86,7 @@ const Navbar: React.FC = () => {
             </button>
           </div>
         </div>
+        {/* УДАЛЕН пропс onAsteroidSelect */}
         <InfoAsteroids />
       </div>
 

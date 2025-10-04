@@ -1,7 +1,8 @@
+// app/layout.tsx
 import type { Metadata } from 'next'
 import { Inter, Space_Mono, Orbitron } from 'next/font/google'
 import './globals.css'
-
+import { AsteroidProvider } from '../components/context/AsteroidContext'
 
 const inter = Inter({ 
   subsets: ['latin', 'cyrillic'],
@@ -19,6 +20,11 @@ const orbitron = Orbitron({
   variable: '--font-orbitron'
 })
 
+export const metadata: Metadata = {
+  title: 'Asteroid Impact Simulator',
+  description: '3D simulation of asteroid impacts on Earth',
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -26,7 +32,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${spaceMono.variable} ${orbitron.variable}`}>
-      <body>{children}</body>
+      <body>
+        <AsteroidProvider>
+          {children}
+        </AsteroidProvider>
+      </body>
     </html>
   )
 }
