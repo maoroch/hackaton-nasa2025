@@ -1,5 +1,5 @@
 import Navbar from "@/components/Navbar";
-import Earth from '@/components/Earth';
+import Earth from '@/components/FinderGeo';
 
 export default function Home() {
   return (

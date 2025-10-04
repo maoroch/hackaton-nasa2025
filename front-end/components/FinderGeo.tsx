@@ -5,6 +5,7 @@ import { useRef, useEffect } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame, useThree, useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three";
+import { OrbitControls as DreiOrbitControls } from "@react-three/drei";
 
 const Earth = () => {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -16,8 +17,27 @@ const Earth = () => {
   // Загрузка текстур Земли
   const [earthTexture, bumpTexture, specularTexture] = useLoader(TextureLoader, [
     "/textures/Albedo.jpg",
-    "textures/night_lights_modified.png"    
+    "/textures/night_lights_modified.png",
+    "/textures/night_lights_modified.png",
   ]);
+
+  // Координаты точек в формате (широта, долгота)
+  const points = [
+    { lat: 0, lon: 0 },   // (0,0)
+    { lat: 90, lon: 0 },  // (90,0)
+    { lat: 0, lon: 180 }, // (0,180)
+  ];
+
+  // Функция для конвертации географических координат в 3D координаты
+function latLonToVector3(lat: number, lon: number, radius = 5) {
+  const phi = (90 - lat) * (Math.PI / 180); // широта
+  const theta = (lon + 180) * (Math.PI / 180); // долгота +180 для текстуры
+  const x = -radius * Math.sin(phi) * Math.cos(theta);
+  const z = radius * Math.sin(phi) * Math.sin(theta);
+  const y = radius * Math.cos(phi);
+  return new THREE.Vector3(x, y, z);
+}
+
 
   const handleClick = (event: MouseEvent) => {
     pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -42,7 +62,7 @@ const Earth = () => {
 
   useFrame(() => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += 0.001; // медленное вращение Земли
+      meshRef.current.rotation.y += 0; // медленное вращение Земли
     }
   });
 
@@ -52,25 +72,38 @@ const Earth = () => {
   }, []);
 
   return (
-    <mesh ref={meshRef}>
-      <sphereGeometry args={[5, 64, 64]} />
-      <meshPhongMaterial
-        map={earthTexture}
-        bumpMap={bumpTexture}
-        bumpScale={0.05}
-        specularMap={specularTexture}
-        specular={new THREE.Color("grey")}
-      />
-    </mesh>
+    <>
+<mesh ref={meshRef} rotation={[0, Math.PI, 0]}>
+        <sphereGeometry args={[5, 64, 64]} />
+        <meshPhongMaterial
+          map={earthTexture}
+          bumpMap={bumpTexture}
+          bumpScale={0.05}
+          specularMap={specularTexture}
+          specular={new THREE.Color("grey")}
+        />
+      </mesh>
+      {/* Добавление маркеров для каждой точки */}
+      {points.map((point, index) => {
+const position = latLonToVector3(point.lat, point.lon, 5.05); // 5.05 вместо 5
+        return (
+          <mesh key={index} position={position}>
+            <sphereGeometry args={[0.1, 16, 16]} /> {/* Маленькая сфера как маркер */}
+            <meshBasicMaterial color="red" /> {/* Красный цвет для видимости */}
+          </mesh>
+        );
+      })}
+    </>
   );
 };
 
 function cartesianToLatLon(point: THREE.Vector3) {
-  const radius = Math.sqrt(point.x ** 2 + point.y ** 2 + point.z ** 2);
-  const lat = Math.asin(point.y / radius) * (180 / Math.PI);
-  const lon = Math.atan2(point.z, point.x) * (180 / Math.PI);
+  const radius = point.length();
+  const lat = 90 - (Math.acos(point.y / radius) * 180 / Math.PI);
+  const lon = Math.atan2(point.z, -point.x) * 180 / Math.PI; // минус для x
   return { lat, lon };
 }
+
 
 export default function GlobeCanvas() {
   return (
@@ -78,6 +111,7 @@ export default function GlobeCanvas() {
       <ambientLight intensity={0.6} />
       <directionalLight position={[5, 3, 5]} intensity={1} />
       <Earth />
+      <DreiOrbitControls enableDamping={true} />
     </Canvas>
   );
 }
