@@ -1,5 +1,21 @@
 [
   {
+    "lat": 29.325905005652835,
+    "lon": 99.77400910882335,
+    "eco_name": "Southeast Tibet shrublands and meadows",
+    "biome": 10.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T02:52:18.834588"
+  },
+  {
+    "lat": 34.32011030130463,
+    "lon": 90.80650098683302,
+    "eco_name": "Central Tibetan Plateau alpine steppe",
+    "biome": 10.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T02:45:11.431345"
+  },
+  {
     "lat": 55.00945524724584,
     "lon": 28.581670408217295,
     "eco_name": "Sarmatic mixed forests",

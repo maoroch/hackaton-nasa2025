@@ -195,6 +195,7 @@ def format_asteroid(a):
             "miss_distance": {
                 "kilometers": str(a.get("miss_distance_km", 0))
             },
+            "mass_kg": mass,  # ДОБАВЛЕНО: масса в килограммах
             "kinetic_energy_joules": KE,
             "crater": {
                 "diameter_m": crater_diameter,
@@ -208,6 +209,7 @@ def format_asteroid(a):
             "name": a.get("name", "Unknown"),
             "error": "Failed to format asteroid data"
         }
+    
 
 def find_biome(lat: float, lon: float):
     """Поиск экорегиона по координатам."""
