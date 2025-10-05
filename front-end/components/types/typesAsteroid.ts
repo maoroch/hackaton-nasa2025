@@ -159,3 +159,4 @@ export const isCustomAsteroid = (asteroid: AnyAsteroid): asteroid is CustomAster
 export const isNasaAsteroid = (asteroid: AnyAsteroid): asteroid is Asteroid => {
   return 'estimated_diameter' in asteroid && 'relative_velocity' in asteroid;
 };
+

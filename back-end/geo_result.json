@@ -1,5 +1,69 @@
 [
   {
+    "lat": 52.07157914247484,
+    "lon": 85.34377077764107,
+    "eco_name": "Kazakh forest steppe",
+    "biome": 8.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T19:26:21.685764"
+  },
+  {
+    "lat": 18.98098118163292,
+    "lon": 100.63982494057171,
+    "eco_name": "Northern Thailand-Laos moist deciduous forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T19:22:06.913012"
+  },
+  {
+    "lat": 6.196389704623844,
+    "lon": 86.71153107874113,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T19:21:58.919513"
+  },
+  {
+    "lat": 14.2863120570646,
+    "lon": 78.05428293576676,
+    "eco_name": "Deccan thorn scrub forests",
+    "biome": 13.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T19:21:28.515487"
+  },
+  {
+    "lat": 15.472735717614563,
+    "lon": 77.99495756151813,
+    "eco_name": "Central Deccan Plateau dry deciduous forests",
+    "biome": 2.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T19:21:00.027239"
+  },
+  {
+    "lat": 46.584752306533986,
+    "lon": 71.3226216698609,
+    "eco_name": "Kazakh semi-desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T19:08:47.791017"
+  },
+  {
+    "lat": 35.720830626755266,
+    "lon": 73.72897726742374,
+    "eco_name": "Northwestern Himalayan alpine shrub and meadows",
+    "biome": 10.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T19:08:02.011280"
+  },
+  {
+    "lat": 11.353568926520417,
+    "lon": 56.61816295172857,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T19:07:54.200100"
+  },
+  {
     "lat": 14.275801381327366,
     "lon": 78.01282725264885,
     "eco_name": "Deccan thorn scrub forests",

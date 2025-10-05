@@ -1,4 +1,3 @@
-// Earth.tsx - УДАЛЯЕМ обработчик клика из Earth
 "use client";
 
 import { useRef, useEffect, useState } from "react";
@@ -10,10 +9,8 @@ import Modal from "./moduleWindows/ModalResult";
 import AsteroidImpactModal from "./moduleWindows/AsteroidImpactModal";
 import { useAsteroid } from './context/AsteroidContext';
 import Asteroid from "./Asteroid";
-import { CubeTextureLoader } from "three";
 import DebugInfo from './DebugInfo';
 import ForceSelectAsteroid from './ForceSelectAsteroid';
-
 
 interface GeoData {
   lat: number;
@@ -42,7 +39,7 @@ const formatMass = (massKg: number | undefined): string => {
   }
 };
 
-// Компонент Земли - БЕЗ обработчика клика
+// Компонент Земли
 const Earth = ({ 
   setEarthMesh
 }: { 
@@ -54,11 +51,9 @@ const Earth = ({
   // Загрузка текстур Земли
   const [earthTexture, bumpTexture, specularTexture] = useLoader(TextureLoader, [
     "/textures/Albedo.jpg",
-    "/textures/background.jpg",
-    "/textures/background.jpg",
+    "/textures/background.jpg", // Note: Consider using a proper bump map instead
+    "/textures/background.jpg", // Note: Consider using a proper specular map instead
   ]);
-
-  
 
   useFrame(() => {
     if (meshRef.current) {
@@ -87,7 +82,21 @@ const Earth = ({
   );
 };
 
+// Компонент для установки фона
+const SceneBackground = () => {
+  const { scene } = useThree();
+  const backgroundTexture = useLoader(TextureLoader, "/textures/background.jpg");
 
+  useEffect(() => {
+    scene.background = backgroundTexture; // Устанавливаем фон сцены
+    return () => {
+      // Очистка при размонтировании
+      scene.background = null;
+    };
+  }, [scene, backgroundTexture]);
+
+  return null;
+};
 
 function cartesianToLatLon(point: THREE.Vector3) {
   const radius = point.length();
@@ -124,9 +133,6 @@ export default function GlobeCanvas() {
     setImpactData(null);
   };
 
-
-
-
   return (
     <>
       <div className="relative w-full h-full">
@@ -136,8 +142,8 @@ export default function GlobeCanvas() {
           <pointLight position={[-10, -5, -10]} intensity={0.5} />
           
           <Earth setEarthMesh={setEarthMesh} />
+          <SceneBackground /> {/* Добавляем компонент фона */}
           
-          {/* Передаем earthMesh и onGeoDataReceived в Asteroid */}
           <Asteroid 
             earthMesh={earthMesh} 
             onGeoDataReceived={handleGeoDataReceived}
@@ -152,10 +158,9 @@ export default function GlobeCanvas() {
             rotateSpeed={0.5}
           />
         </Canvas>
-<DebugInfo />
-<ForceSelectAsteroid />
+        <DebugInfo />
+        <ForceSelectAsteroid />
 
-        {/* Баннер выбранного астероида */}
         {selectedAsteroid && (
           <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-cyan-900/90 backdrop-blur-lg text-white p-4 rounded-xl border border-cyan-400/50 z-40 shadow-2xl max-w-md">
             <div className="flex items-center space-x-3">

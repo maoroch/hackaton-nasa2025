@@ -9,6 +9,9 @@ interface GeoData {
   eco_name: string;
   biome: string;
   realm: string;
+  risk_level?: string;  // "high", "medium", "low", "unknown"
+  risk_description?: string;
+  risk_factors?: string[];
 }
 
 interface ModalProps {
@@ -126,6 +129,36 @@ const Modal = ({ isOpen, onClose, geoData }: ModalProps) => {
           />
         </div>
       </div>
+      // В JSX модала, после ecological data
+{geoData.risk_level && (
+  <div className="mt-3 pt-3 border-t border-slate-600">
+    <div className="flex items-center space-x-2 mb-2">
+      <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
+      <span className="text-xs text-slate-300 font-mono">CLIMATE RISKS</span>
+    </div>
+    <div className="space-y-1 text-xs">
+      <div className="flex justify-between">
+        <span className="text-slate-400">Risk Level:</span>
+        <span className={`font-medium ${
+          geoData.risk_level === 'high' ? 'text-red-400' : 
+          geoData.risk_level === 'medium' ? 'text-yellow-400' : 'text-green-400'
+        }`}>
+          {geoData.risk_level.toUpperCase()}
+        </span>
+      </div>
+      <p className="text-slate-300 text-left">{geoData.risk_description}</p>
+      {geoData.risk_factors && geoData.risk_factors.length > 0 && (
+        <div className="flex flex-wrap gap-1 mt-1">
+          {geoData.risk_factors.map((factor, idx) => (
+            <span key={idx} className="px-2 py-0.5 bg-slate-700 text-xs rounded">
+              {factor}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+)}
     </div>
   );
 };
