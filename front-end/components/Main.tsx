@@ -10,6 +10,10 @@ import Modal from "./moduleWindows/ModalResult";
 import AsteroidImpactModal from "./moduleWindows/AsteroidImpactModal";
 import { useAsteroid } from './context/AsteroidContext';
 import Asteroid from "./Asteroid";
+import { CubeTextureLoader } from "three";
+import DebugInfo from './DebugInfo';
+import ForceSelectAsteroid from './ForceSelectAsteroid';
+
 
 interface GeoData {
   lat: number;
@@ -50,9 +54,11 @@ const Earth = ({
   // Загрузка текстур Земли
   const [earthTexture, bumpTexture, specularTexture] = useLoader(TextureLoader, [
     "/textures/Albedo.jpg",
-    "/textures/night_lights_modified.png",
-    "/textures/night_lights_modified.png",
+    "/textures/background.jpg",
+    "/textures/background.jpg",
   ]);
+
+  
 
   useFrame(() => {
     if (meshRef.current) {
@@ -80,6 +86,8 @@ const Earth = ({
     </>
   );
 };
+
+
 
 function cartesianToLatLon(point: THREE.Vector3) {
   const radius = point.length();
@@ -116,6 +124,9 @@ export default function GlobeCanvas() {
     setImpactData(null);
   };
 
+
+
+
   return (
     <>
       <div className="relative w-full h-full">
@@ -141,6 +152,8 @@ export default function GlobeCanvas() {
             rotateSpeed={0.5}
           />
         </Canvas>
+<DebugInfo />
+<ForceSelectAsteroid />
 
         {/* Баннер выбранного астероида */}
         {selectedAsteroid && (

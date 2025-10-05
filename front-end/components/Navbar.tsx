@@ -5,7 +5,7 @@ import InfoAsteroids from './InfoAsteroids';
 import MathAsteroids from './AsteroidsMath';
 import CustomAsteroidCreator from './moduleWindows/CustomAsteroidCreator';
 import Link from 'next/link';
-import { useAsteroid } from './context/AsteroidContext';
+import { useAsteroid, CustomAsteroid } from './context/AsteroidContext';
 
 interface CustomAsteroidData {
   name: string;
@@ -53,6 +53,17 @@ const getAsteroidColor = (diameter: number, isHazardous: boolean): string => {
   }
 };
 
+// Функция для получения диаметра астероида в зависимости от типа
+const getAsteroidDiameter = (asteroid: any): number => {
+  if ('diameter' in asteroid) {
+    // Это кастомный астероид
+    return (asteroid as CustomAsteroid).diameter;
+  } else {
+    // Это астероид из NASA
+    return asteroid.estimated_diameter.meters.estimated_diameter_min;
+  }
+};
+
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMathOpen, setIsMathOpen] = useState(false);
@@ -63,13 +74,15 @@ const Navbar: React.FC = () => {
   const SelectedAsteroidVisual = () => {
     if (!selectedAsteroid) return null;
     
-    const displaySize = getAsteroidDisplaySize(
-      selectedAsteroid.estimated_diameter.meters.estimated_diameter_min
-    );
+    const diameter = getAsteroidDiameter(selectedAsteroid);
+    const displaySize = getAsteroidDisplaySize(diameter);
     const asteroidColor = getAsteroidColor(
-      selectedAsteroid.estimated_diameter.meters.estimated_diameter_min,
+      diameter,
       selectedAsteroid.is_potentially_hazardous_asteroid
     );
+
+    // Определяем, является ли астероид кастомным
+    const isCustom = 'diameter' in selectedAsteroid;
 
     return (
       <div className="flex items-center space-x-3">
@@ -95,14 +108,22 @@ const Navbar: React.FC = () => {
           
           {/* Индикатор выбора */}
           <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse border border-white"></div>
+          
+          {/* Индикатор кастомного астероида */}
+          {isCustom && (
+            <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-blue-500 rounded-full border border-white">
+              <span className="text-xs">🛠️</span>
+            </div>
+          )}
         </div>
         
         <div className="min-w-0">
           <h3 className="font-bold text-cyan-300 truncate">
             ✅ {selectedAsteroid.name}
+            {isCustom && <span className="ml-1 text-blue-300">🛠️</span>}
           </h3>
           <p className="text-sm text-cyan-200">
-            Ø {selectedAsteroid.estimated_diameter.meters.estimated_diameter_min.toFixed(1)} м • 
+            Ø {diameter.toFixed(1)} м • 
             Кликните на Землю для удара!
             {selectedAsteroid.is_potentially_hazardous_asteroid && (
               <span className="ml-1 text-red-300">⚠️ Опасен</span>
@@ -133,14 +154,17 @@ const Navbar: React.FC = () => {
       <nav className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-black/20 backdrop-blur-lg border border-white/10 rounded-2xl z-50 shadow-2xl">
         <div className="px-6 py-3">
           <div className="flex items-center justify-center space-x-4">
-            {/* Home Link */}
-            <Link 
-              href="/" 
-              className="flex items-center space-x-2 text-white/80 hover:text-cyan-300 transition-all duration-200 p-2 rounded-lg hover:bg-white/5"
-              title="Главная"
+
+
+
+            {/* Asteroid Math Button */}
+            <button
+              onClick={() => setIsMathOpen(!isMathOpen)}
+              className="px-4 py-2 rounded-xl bg-white/5 hover:bg-cyan-500/20 text-white/90 hover:text-cyan-300 font-light text-sm transition-all duration-200 border border-white/10 hover:border-cyan-400/30"
             >
-              <span className="text-lg font-light">🏠</span>
-            </Link>
+              {isMathOpen ? '✕ Close' : 'Calculations'}
+            </button>
+
 
             {/* Create Asteroid Button */}
             <button
@@ -151,13 +175,6 @@ const Navbar: React.FC = () => {
               +
             </button>
 
-            {/* Asteroid Math Button */}
-            <button
-              onClick={() => setIsMathOpen(!isMathOpen)}
-              className="px-4 py-2 rounded-xl bg-white/5 hover:bg-cyan-500/20 text-white/90 hover:text-cyan-300 font-light text-sm transition-all duration-200 border border-white/10 hover:border-cyan-400/30"
-            >
-              {isMathOpen ? '✕ Close' : 'Calculations'}
-            </button>
 
             {/* Asteroid Data Button */}
             <button
@@ -166,23 +183,7 @@ const Navbar: React.FC = () => {
             >
               {isOpen ? '✕ Close' : 'Asteroids'}
             </button>
-
-            {/* Additional Links */}
-            <Link
-              href="/earth"
-              className="flex items-center space-x-2 text-white/80 hover:text-cyan-300 transition-all duration-200 p-2 rounded-lg hover:bg-white/5"
-              title="Земля - симулятор ударов"
-            >
-              <span className="text-lg font-light">🌍</span>
-            </Link>
-
-            <Link
-              href="/meteorites"
-              className="flex items-center space-x-2 text-white/80 hover:text-cyan-300 transition-all duration-200 p-2 rounded-lg hover:bg-white/5"
-              title="Метеориты"
-            >
-              <span className="text-lg font-light">☄️</span>
-            </Link>
+            
           </div>
         </div>
       </nav>

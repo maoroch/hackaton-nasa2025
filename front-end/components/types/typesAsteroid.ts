@@ -52,3 +52,110 @@ export const AsteroidUtils = {
     return `${massKg.toFixed(2)} кг`;
   }
 };
+
+// types/typesAsteroid.ts
+export interface Asteroid {
+  id: string;
+  name: string;
+  date: string;
+  estimated_diameter: {
+    meters: {
+      estimated_diameter_min: number;
+      estimated_diameter_max: number;
+    };
+  };
+  relative_velocity: {
+    kilometers_per_second: string;
+  };
+  miss_distance: {
+    kilometers: string;
+  };
+  is_potentially_hazardous_asteroid: boolean;
+  mass_kg?: number;
+  kinetic_energy_joules?: number;
+  crater?: {
+    diameter_m: number;
+    dust_radius_m: number;
+    dust_height_m: number;
+  };
+  // Добавляем опциональное поле для кастомных астероидов
+  is_custom?: boolean;
+}
+
+export interface CustomAsteroid {
+  id: string;
+  name: string;
+  diameter: number;
+  density: number;
+  velocity: number;
+  angle: number;
+  mass_kg: number;
+  kinetic_energy_joules: number;
+  crater_diameter: number;
+  ejecta_radius: number;
+  dust_height: number;
+  is_potentially_hazardous_asteroid: boolean;
+  created_at: string;
+  // Добавляем поле для совместимости
+  is_custom?: boolean;
+}
+
+
+// types/typesAsteroid.ts
+export interface Asteroid {
+  id: string;
+  name: string;
+  date: string;
+  estimated_diameter: {
+    meters: {
+      estimated_diameter_min: number;
+      estimated_diameter_max: number;
+    };
+  };
+  relative_velocity: {
+    kilometers_per_second: string;
+  };
+  miss_distance: {
+    kilometers: string;
+  };
+  is_potentially_hazardous_asteroid: boolean;
+  mass_kg?: number;
+  kinetic_energy_joules?: number;
+  crater?: {
+    diameter_m: number;
+    dust_radius_m: number;
+    dust_height_m: number;
+  };
+  // Добавляем опциональное поле для кастомных астероидов
+  is_custom?: boolean;
+}
+
+export interface CustomAsteroid {
+  id: string;
+  name: string;
+  diameter: number;
+  density: number;
+  velocity: number;
+  angle: number;
+  mass_kg: number;
+  kinetic_energy_joules: number;
+  crater_diameter: number;
+  ejecta_radius: number;
+  dust_height: number;
+  is_potentially_hazardous_asteroid: boolean;
+  created_at: string;
+  // Добавляем поле для совместимости
+  is_custom?: boolean;
+}
+
+// Объединенный тип для работы в компонентах
+export type AnyAsteroid = Asteroid | CustomAsteroid;
+
+// Type guards для проверки типа
+export const isCustomAsteroid = (asteroid: AnyAsteroid): asteroid is CustomAsteroid => {
+  return 'diameter' in asteroid && 'velocity' in asteroid && 'created_at' in asteroid;
+};
+
+export const isNasaAsteroid = (asteroid: AnyAsteroid): asteroid is Asteroid => {
+  return 'estimated_diameter' in asteroid && 'relative_velocity' in asteroid;
+};

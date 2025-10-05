@@ -1,10 +1,10 @@
-// Asteroid.tsx - ОСТАВЛЯЕМ только один обработчик клика
+// Asteroid.tsx
 "use client";
 
 import { useRef, useEffect, useMemo } from "react";
 import * as THREE from "three";
 import { useFrame, useThree, useLoader } from "@react-three/fiber";
-import { useAsteroid } from './context/AsteroidContext';
+import { useAsteroid, CustomAsteroid } from './context/AsteroidContext';
 import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry.js';
 
 interface AsteroidProps {
@@ -18,9 +18,10 @@ const Asteroid = ({ earthMesh, onGeoDataReceived, setImpactData }: AsteroidProps
   const particlesRef = useRef<THREE.Points>(null);
   const dustRef = useRef<THREE.Points>(null);
   const glowRef = useRef<THREE.Mesh>(null);
-  const { selectedAsteroid } = useAsteroid();
+const { selectedAsteroid, customAsteroids } = useAsteroid(); // Добавьте customAsteroids
   const { camera, gl, scene } = useThree();
 
+  
   // Загрузка текстур для нового дизайна астероида
   const [asteroidTexture, asteroidNormal, asteroidRoughness] = useLoader(THREE.TextureLoader, [
     '/textures/asteroid/asteroid_diffuse.jpg',
@@ -202,6 +203,40 @@ const Asteroid = ({ earthMesh, onGeoDataReceived, setImpactData }: AsteroidProps
   const mouse = new THREE.Vector2();
   const trailPositions = useRef(new Float32Array(params.trailLength * 3));
 
+  // Функция для получения данных кратера в универсальном формате
+  const getCraterData = (asteroid: any) => {
+    if ('diameter' in asteroid) {
+      // Это кастомный астероид
+      return {
+        diameter_m: asteroid.crater_diameter,
+        dust_radius_m: asteroid.ejecta_radius,
+        dust_height_m: asteroid.dust_height
+      };
+    } else {
+      // Это астероид из NASA
+      return asteroid.crater;
+    }
+  };
+
+  // Функция для форматирования массы
+  const formatMass = (massKg: number | undefined): string => {
+    if (massKg === undefined || massKg === null || isNaN(massKg)) {
+      return "Неизвестно";
+    }
+    
+    if (massKg >= 1e12) {
+      return `${(massKg / 1e12).toFixed(2)} млрд тонн`;
+    } else if (massKg >= 1e9) {
+      return `${(massKg / 1e9).toFixed(2)} млн тонн`;
+    } else if (massKg >= 1e6) {
+      return `${(massKg / 1e6).toFixed(2)} тыс. тонн`;
+    } else if (massKg >= 1e3) {
+      return `${(massKg / 1e3).toFixed(2)} тонн`;
+    } else {
+      return `${massKg.toFixed(2)} кг`;
+    }
+  };
+
   const calculateStartPosition = (target: THREE.Vector3) => {
     const start = new THREE.Vector3(20, 15, 15);
     
@@ -233,7 +268,7 @@ const Asteroid = ({ earthMesh, onGeoDataReceived, setImpactData }: AsteroidProps
     trailGeometry.attributes.position.needsUpdate = true;
   };
 
-  // НОВАЯ ФУНКЦИЯ: Создание декали-кратера вместо сложной геометрии
+  // Функция для создания декали-кратера
   const createCraterDecal = (position: THREE.Vector3, force: number, earthMesh: THREE.Mesh) => {
     if (!earthMesh) return null;
 
@@ -279,32 +314,30 @@ const Asteroid = ({ earthMesh, onGeoDataReceived, setImpactData }: AsteroidProps
     return decalMesh;
   };
 
-  // Функция для форматирования массы
-  const formatMass = (massKg: number | undefined): string => {
-    if (massKg === undefined || massKg === null || isNaN(massKg)) {
-      return "Неизвестно";
-    }
-    
-    if (massKg >= 1e12) {
-      return `${(massKg / 1e12).toFixed(2)} млрд тонн`;
-    } else if (massKg >= 1e9) {
-      return `${(massKg / 1e9).toFixed(2)} млн тонн`;
-    } else if (massKg >= 1e6) {
-      return `${(massKg / 1e6).toFixed(2)} тыс. тонн`;
-    } else if (massKg >= 1e3) {
-      return `${(massKg / 1e3).toFixed(2)} тонн`;
-    } else {
-      return `${massKg.toFixed(2)} кг`;
-    }
-  };
+const handleClick = async (event: MouseEvent) => {
+  console.log("=== 🖱️ КЛИК ПО ЗЕМЛЕ ===");
+  console.log("📋 Состояние системы:");
+  console.log("  - Земля загружена:", !!earthMesh);
+  console.log("  - Выбранный астероид:", selectedAsteroid);
+  console.log("  - Тип астероида:", selectedAsteroid ? ('diameter' in selectedAsteroid ? 'Кастомный' : 'NASA') : 'Нет');
+  console.log("  - В движении:", animationState.current.isMoving);
+  console.log("  - Всего кастомных астероидов:", customAsteroids.length);
 
-  const handleClick = async (event: MouseEvent) => {
-    if (!earthMesh || !selectedAsteroid || animationState.current.isMoving) {
-      if (!selectedAsteroid) {
-        console.log("❌ Сначала выберите астероид из списка!");
-      }
+  if (!earthMesh || !selectedAsteroid || animationState.current.isMoving) {
+    if (!selectedAsteroid) {
+      console.log("❌ ОШИБКА: Астероид не выбран!");
+      console.log("💡 РЕШЕНИЕ: Убедитесь, что после создания астероида он автоматически выбирается");
+    }
+    if (!earthMesh) {
+      console.log("❌ ОШИБКА: Земля не загружена!");
+    }
+    if (animationState.current.isMoving) {
+      console.log("⏳ Астероид уже в движении!");
+    }
       return;
     }
+  console.log("🚀 ЗАПУСК АСТЕРОИДА:", selectedAsteroid.name);
+    console.log("📊 Тип астероида:", 'diameter' in selectedAsteroid ? 'Кастомный' : 'NASA');
 
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -316,12 +349,38 @@ const Asteroid = ({ earthMesh, onGeoDataReceived, setImpactData }: AsteroidProps
     if (intersects.length > 0) {
       const point = intersects[0].point;
       const latLon = cartesianToLatLon(point);
-      console.log("🎯 Запуск астероида к точке:", point, "Координаты:", latLon);
+      console.log("🎯 Цель:", point, "Координаты:", latLon);
 
-      // Рассчитываем силу удара на основе характеристик астероида
-      const diameter = selectedAsteroid.estimated_diameter.meters.estimated_diameter_min;
-      const velocity = parseFloat(selectedAsteroid.relative_velocity.kilometers_per_second);
-      const impactForce = Math.min((diameter / 100) * (velocity / 10), 3.0); // Ограничиваем максимальную силу
+      let diameter, velocity, impactForce;
+      let mass, kinetic_energy;
+      let is_custom = false;
+
+      // Получаем данные астероида в зависимости от типа
+      if ('diameter' in selectedAsteroid) {
+        // Это кастомный астероид
+        is_custom = true;
+        const customAsteroid = selectedAsteroid as CustomAsteroid;
+        diameter = customAsteroid.diameter;
+        velocity = customAsteroid.velocity;
+        mass = customAsteroid.mass_kg;
+        kinetic_energy = customAsteroid.kinetic_energy_joules;
+        console.log("🛠️ Кастомный астероид данные:", { diameter, velocity, mass, kinetic_energy });
+      } else {
+        // Это астероид из NASA
+        diameter = selectedAsteroid.estimated_diameter.meters.estimated_diameter_min;
+        velocity = parseFloat(selectedAsteroid.relative_velocity.kilometers_per_second);
+        mass = selectedAsteroid.mass_kg;
+        kinetic_energy = selectedAsteroid.kinetic_energy_joules;
+        console.log("🌌 NASA астероид данные:", { diameter, velocity, mass, kinetic_energy });
+      }
+
+      // Получаем данные кратера в универсальном формате
+      const crater_data = getCraterData(selectedAsteroid);
+      console.log("💥 Данные кратера:", crater_data);
+
+      impactForce = (diameter / 100) * (velocity / 10);
+      // Ограничиваем максимальную силу
+      impactForce = Math.min(impactForce, 3.0);
       
       animationState.current.targetPoint = point.clone();
       animationState.current.startPosition = calculateStartPosition(point);
@@ -331,7 +390,7 @@ const Asteroid = ({ earthMesh, onGeoDataReceived, setImpactData }: AsteroidProps
       animationState.current.isMoving = true;
 
       // Настраиваем размер астероида в зависимости от диаметра
-      const scale = Math.min(diameter / 80, 1.5); // Меньший масштаб для угловатой формы
+      const scale = Math.min(diameter / 80, 1.5);
       if (asteroidRef.current) {
         asteroidRef.current.scale.setScalar(scale);
         asteroidRef.current.position.copy(animationState.current.startPosition);
@@ -365,26 +424,34 @@ const Asteroid = ({ earthMesh, onGeoDataReceived, setImpactData }: AsteroidProps
 
       // Устанавливаем данные для модального окна удара
       const impactData = {
-  name: selectedAsteroid.name,
-  coordinates: latLon,
-  mass: formatMass(selectedAsteroid.mass_kg),
-  diameter: `${selectedAsteroid.estimated_diameter.meters.estimated_diameter_min.toFixed(2)} м`,
-  velocity: `${parseFloat(selectedAsteroid.relative_velocity.kilometers_per_second).toFixed(2)} км/с`,
-  kinetic_energy: selectedAsteroid.kinetic_energy_joules ? 
-    `${selectedAsteroid.kinetic_energy_joules.toExponential(2)} Дж` : "Неизвестно",
-  crater: { // Всегда создаем объект crater
-    diameter: `${(impactForce * 0.8).toFixed(1)} км`,
-    dust_radius: `${(impactForce * 1.5).toFixed(1)} км`,
-    dust_height: `${(impactForce * 0.3).toFixed(1)} км`
-  },
-  is_hazardous: selectedAsteroid.is_potentially_hazardous_asteroid
-};
-
+        name: selectedAsteroid.name,
+        coordinates: latLon,
+        mass: formatMass(mass),
+        diameter: `${diameter.toFixed(2)} м`,
+        velocity: `${velocity.toFixed(2)} км/с`,
+        kinetic_energy: kinetic_energy ? 
+          `${kinetic_energy.toExponential(2)} Дж` : "Неизвестно",
+        crater: {
+          diameter: crater_data && crater_data.diameter_m ? 
+            `${(crater_data.diameter_m / 1000).toFixed(2)} км` : 
+            `${(impactForce * 0.8).toFixed(2)} км`,
+          dust_radius: crater_data && crater_data.dust_radius_m ? 
+            `${(crater_data.dust_radius_m / 1000).toFixed(2)} км` : 
+            `${(impactForce * 1.5).toFixed(2)} км`,
+          dust_height: crater_data && crater_data.dust_height_m ? 
+            `${(crater_data.dust_height_m / 1000).toFixed(2)} км` : 
+            `${(impactForce * 0.3).toFixed(2)} км`
+        },
+        is_hazardous: selectedAsteroid.is_potentially_hazardous_asteroid,
+        is_custom: is_custom
+      };
       
+      console.log("📋 Данные для модального окна:", impactData);
       setImpactData(impactData);
 
       // Получаем геоданные
       try {
+        console.log("🌍 Запрос геоданных для:", latLon);
         const response = await fetch(`http://127.0.0.1:5000/geo?lat=${latLon.lat}&lon=${latLon.lon}`);
         const data = await response.json();
         console.log("📍 Ответ OSM:", data);
@@ -398,7 +465,7 @@ const Asteroid = ({ earthMesh, onGeoDataReceived, setImpactData }: AsteroidProps
           realm: data.realm || "Unknown"
         });
       } catch (err) {
-        console.error("Ошибка запроса:", err);
+        console.error("❌ Ошибка запроса геоданных:", err);
         onGeoDataReceived({
           lat: latLon.lat,
           lon: latLon.lon,
@@ -411,6 +478,7 @@ const Asteroid = ({ earthMesh, onGeoDataReceived, setImpactData }: AsteroidProps
   };
 
   useEffect(() => {
+    console.log("🎯 Инициализация обработчика клика для астероида");
     gl.domElement.addEventListener("click", handleClick);
     return () => {
       gl.domElement.removeEventListener("click", handleClick);
@@ -449,11 +517,11 @@ const Asteroid = ({ earthMesh, onGeoDataReceived, setImpactData }: AsteroidProps
         }
 
         if (distanceToCenter < 8.3) { // Земля радиус 8 + астероид радиус 0.3
-          console.log("💥 COLLISION! Impact force:", stateRef.impactForce);
+          console.log("💥 СТОЛКНОВЕНИЕ! Сила удара:", stateRef.impactForce);
           stateRef.isMoving = false;
           stateRef.fadeStartTime = state.clock.getElapsedTime();
           
-          // ИСПОЛЬЗУЕМ ДЕКАЛЬ ВМЕСТО СЛОЖНОГО КРАТЕРА
+          // Используем декаль вместо сложного кратера
           createCraterDecal(stateRef.targetPoint, stateRef.impactForce, earthMesh);
           
           if (dustRef.current) {

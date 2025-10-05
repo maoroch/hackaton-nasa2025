@@ -19,6 +19,7 @@ interface AsteroidImpactData {
     dust_height: string;
   };
   is_hazardous: boolean;
+  is_custom?: boolean; // Добавляем опциональное поле
 }
 
 interface AsteroidImpactModalProps {
@@ -105,6 +106,15 @@ const AsteroidImpactModal = ({ isOpen, onClose, impactData }: AsteroidImpactModa
         <div className="relative z-10">
           {/* Header */}
           <div className="text-center mb-6">
+            {/* ВСТАВЛЯЕМ ЗДЕСЬ - отображение метки кастомного астероида */}
+            {impactData.is_custom && (
+              <div className="flex items-center justify-center space-x-2 mb-2">
+                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                <span className="text-blue-300 font-space-mono text-xs">КАСТОМНЫЙ АСТЕРОИД</span>
+                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-300"></div>
+              </div>
+            )}
+            
             <div className="flex items-center justify-center space-x-3 mb-2">
               <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
               <h2 className="text-2xl font-orbitron text-red-300 font-bold">

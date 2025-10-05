@@ -2,7 +2,7 @@
 import type { Metadata } from 'next'
 import { Inter, Space_Mono, Orbitron } from 'next/font/google'
 import './globals.css'
-import { AsteroidProvider } from '../components/context/AsteroidContext'
+import Providers from '../components/Providers' // Импортируем клиентский провайдер
 
 const inter = Inter({ 
   subsets: ['latin', 'cyrillic'],
@@ -33,9 +33,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${spaceMono.variable} ${orbitron.variable}`}>
       <body>
-        <AsteroidProvider>
+        <Providers> {/* Используем клиентский провайдер */}
           {children}
-        </AsteroidProvider>
+        </Providers>
       </body>
     </html>
   )

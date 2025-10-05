@@ -3,10 +3,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useAsteroid } from './context/AsteroidContext';
-import { Asteroid } from './types/typesAsteroid'; // Импортируем тип
-
-// УДАЛИТЕ этот дублированный интерфейс - используем из контекста
-// export interface Asteroid { ... }
+import { Asteroid, CustomAsteroid, AnyAsteroid, isCustomAsteroid, isNasaAsteroid } from './types/typesAsteroid';
 
 interface ApiResponse {
   count: number;
@@ -34,16 +31,11 @@ const formatMass = (massKg: number | undefined): string => {
 
 // Утилита для расчета визуального размера астероида
 const getAsteroidDisplaySize = (diameterMeters: number): number => {
-  // Логарифмическое масштабирование для лучшего визуального отображения
-  // Реальные диаметры: от 1м до 1000м (1км)
-  // Визуальные размеры: от 8px до 120px
+  const minRealSize = 1;
+  const maxRealSize = 1000;
+  const minDisplaySize = 8;
+  const maxDisplaySize = 120;
   
-  const minRealSize = 1; // 1 метр
-  const maxRealSize = 1000; // 1 километр
-  const minDisplaySize = 8; // пикселей
-  const maxDisplaySize = 120; // пикселей
-  
-  // Логарифмическое масштабирование
   const logMin = Math.log(minRealSize);
   const logMax = Math.log(maxRealSize);
   const logValue = Math.log(Math.max(diameterMeters, minRealSize));
@@ -53,11 +45,16 @@ const getAsteroidDisplaySize = (diameterMeters: number): number => {
 };
 
 // Утилита для расчета цвета астероида
-const getAsteroidColor = (diameter: number, isHazardous: boolean): string => {
-  // Цвет зависит от размера и опасности
+const getAsteroidColor = (diameter: number, isHazardous: boolean, isCustom: boolean = false): string => {
   const sizeFactor = Math.min(diameter / 500, 1);
   
-  if (isHazardous) {
+  if (isCustom) {
+    // Кастомные астероиды - фиолетовые оттенки
+    const red = 150 + Math.floor(sizeFactor * 50);
+    const green = 100 + Math.floor(sizeFactor * 30);
+    const blue = 200 + Math.floor(sizeFactor * 55);
+    return `rgb(${red}, ${green}, ${blue})`;
+  } else if (isHazardous) {
     // Опасные - красные оттенки
     const red = 200 + Math.floor(sizeFactor * 55);
     const green = 100 - Math.floor(sizeFactor * 80);
@@ -72,14 +69,39 @@ const getAsteroidColor = (diameter: number, isHazardous: boolean): string => {
   }
 };
 
+// Функция для получения диаметра астероида (работает с любым типом)
+const getAsteroidDiameter = (asteroid: AnyAsteroid): number => {
+  if (isCustomAsteroid(asteroid)) {
+    return asteroid.diameter;
+  } else {
+    return asteroid.estimated_diameter.meters.estimated_diameter_min;
+  }
+};
+
+// Функция для получения скорости астероида (работает с любым типом)
+const getAsteroidVelocity = (asteroid: AnyAsteroid): number => {
+  if (isCustomAsteroid(asteroid)) {
+    return asteroid.velocity;
+  } else {
+    return parseFloat(asteroid.relative_velocity.kilometers_per_second);
+  }
+};
+
 // Компонент для визуализации астероида
-const AsteroidVisual = ({ asteroid, isSelected }: { asteroid: Asteroid, isSelected: boolean }) => {
-  const displaySize = getAsteroidDisplaySize(
-    asteroid.estimated_diameter.meters.estimated_diameter_min
-  );
+const AsteroidVisual = ({ 
+  asteroid, 
+  isSelected
+}: { 
+  asteroid: AnyAsteroid, 
+  isSelected: boolean
+}) => {
+  const isCustom = isCustomAsteroid(asteroid);
+  const diameter = getAsteroidDiameter(asteroid);
+  const displaySize = getAsteroidDisplaySize(diameter);
   const asteroidColor = getAsteroidColor(
-    asteroid.estimated_diameter.meters.estimated_diameter_min,
-    asteroid.is_potentially_hazardous_asteroid
+    diameter,
+    asteroid.is_potentially_hazardous_asteroid,
+    isCustom
   );
 
   return (
@@ -109,20 +131,31 @@ const AsteroidVisual = ({ asteroid, isSelected }: { asteroid: Asteroid, isSelect
         {isSelected && (
           <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full animate-pulse"></div>
         )}
+        
+        {/* Индикатор кастомного астероида */}
+        {isCustom && (
+          <div className="absolute -top-1 -left-1 w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
+        )}
       </div>
 
       {/* Основная информация */}
       <div className="flex-1 min-w-0">
         <h3 className="font-orbitron text-xl text-cyan-400 truncate">
           {asteroid.name}
+          {isCustom && (
+            <span className="ml-2 text-sm text-purple-400">🛠️</span>
+          )}
           {isSelected && (
             <span className="ml-2 text-sm text-green-400">✓ Выбран</span>
           )}
         </h3>
         <p className="text-gray-400 text-sm font-space-mono">
-          Ø {asteroid.estimated_diameter.meters.estimated_diameter_min.toFixed(1)} м
+          Ø {diameter.toFixed(1)} м
           {asteroid.is_potentially_hazardous_asteroid && (
             <span className="ml-2 text-red-400">⚠️ Опасен</span>
+          )}
+          {isCustom && (
+            <span className="ml-2 text-purple-400">Кастомный</span>
           )}
         </p>
       </div>
@@ -131,10 +164,20 @@ const AsteroidVisual = ({ asteroid, isSelected }: { asteroid: Asteroid, isSelect
 };
 
 const AsteroidsList: React.FC = () => {
-  const [asteroids, setAsteroids] = useState<Asteroid[]>([]);
+  const [nasaAsteroids, setNasaAsteroids] = useState<Asteroid[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { selectedAsteroid, setSelectedAsteroid } = useAsteroid();
+  const { selectedAsteroid, setSelectedAsteroid, customAsteroids } = useAsteroid();
+
+  // Объединяем астероиды из NASA и кастомные
+  const allAsteroids: AnyAsteroid[] = [
+    ...nasaAsteroids,
+    ...customAsteroids.map(custom => ({
+      ...custom,
+      // Добавляем поле для идентификации
+      is_custom: true as const
+    }))
+  ];
 
   useEffect(() => {
     const fetchAsteroids = async () => {
@@ -144,7 +187,7 @@ const AsteroidsList: React.FC = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data: ApiResponse = await response.json();
-        setAsteroids(data.asteroids);
+        setNasaAsteroids(data.asteroids);
         setError(null);
       } catch (err) {
         console.error("Failed to fetch asteroids:", err);
@@ -157,22 +200,42 @@ const AsteroidsList: React.FC = () => {
     fetchAsteroids();
   }, []);
 
-  const handleAsteroidClick = (asteroid: Asteroid) => {
+  const handleAsteroidClick = (asteroid: AnyAsteroid) => {
     setSelectedAsteroid(asteroid);
     
-    console.log("🎯 Выбран астероид для удара:", {
-      name: asteroid.name,
-      масса: formatMass(asteroid.mass_kg),
-      диаметр: `${asteroid.estimated_diameter.meters.estimated_diameter_min.toFixed(2)} м`,
-      скорость: `${parseFloat(asteroid.relative_velocity.kilometers_per_second).toFixed(2)} км/с`,
-      кинетическая_энергия: asteroid.kinetic_energy_joules ? `${asteroid.kinetic_energy_joules.toExponential(2)} Дж` : "Неизвестно",
-      кратер: asteroid.crater ? {
-        диаметр: `${asteroid.crater.diameter_m.toFixed(1)} м`,
-        радиус_выброса: `${asteroid.crater.dust_radius_m.toFixed(1)} м`, 
-        высота_пыли: `${asteroid.crater.dust_height_m.toFixed(1)} м`
-      } : "Неизвестно",
-      опасный: asteroid.is_potentially_hazardous_asteroid ? "Да" : "Нет"
-    });
+    if (isCustomAsteroid(asteroid)) {
+      // Логика для кастомных астероидов
+      console.log("🎯 Выбран кастомный астероид:", {
+        name: asteroid.name,
+        масса: formatMass(asteroid.mass_kg),
+        диаметр: `${asteroid.diameter.toFixed(2)} м`,
+        скорость: `${asteroid.velocity.toFixed(2)} км/с`,
+        кинетическая_энергия: asteroid.kinetic_energy_joules ? `${asteroid.kinetic_energy_joules.toExponential(2)} Дж` : "Неизвестно",
+        кратер: {
+          диаметр: `${asteroid.crater_diameter.toFixed(1)} м`,
+          радиус_выброса: `${asteroid.ejecta_radius.toFixed(1)} м`, 
+          высота_пыли: `${asteroid.dust_height.toFixed(1)} м`
+        },
+        опасный: asteroid.is_potentially_hazardous_asteroid ? "Да" : "Нет",
+        тип: "Кастомный"
+      });
+    } else {
+      // Логика для NASA астероидов
+      console.log("🎯 Выбран астероид NASA:", {
+        name: asteroid.name,
+        масса: formatMass(asteroid.mass_kg),
+        диаметр: `${asteroid.estimated_diameter.meters.estimated_diameter_min.toFixed(2)} м`,
+        скорость: `${parseFloat(asteroid.relative_velocity.kilometers_per_second).toFixed(2)} км/с`,
+        кинетическая_энергия: asteroid.kinetic_energy_joules ? `${asteroid.kinetic_energy_joules.toExponential(2)} Дж` : "Неизвестно",
+        кратер: asteroid.crater ? {
+          диаметр: `${asteroid.crater.diameter_m.toFixed(1)} м`,
+          радиус_выброса: `${asteroid.crater.dust_radius_m.toFixed(1)} м`, 
+          высота_пыли: `${asteroid.crater.dust_height_m.toFixed(1)} м`
+        } : "Неизвестно",
+        опасный: asteroid.is_potentially_hazardous_asteroid ? "Да" : "Нет",
+        тип: "NASA"
+      });
+    }
   };
 
   if (loading) return (
@@ -198,10 +261,30 @@ const AsteroidsList: React.FC = () => {
 
   return (
     <div className="divide-y bg-gradient-to-b from-slate-900 to-slate-800 text-white">
+      {/* Заголовок с информацией */}
+      <div className="p-4 bg-slate-800/50 border-b border-slate-700">
+        <h2 className="font-orbitron text-lg text-cyan-300 mb-2">
+          🪐 Список астероидов
+        </h2>
+        <div className="flex space-x-4 text-sm text-gray-400">
+          <div className="flex items-center">
+            <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
+            <span>NASA астероиды: {nasaAsteroids.length}</span>
+          </div>
+          <div className="flex items-center">
+            <div className="w-3 h-3 bg-purple-500 rounded-full mr-2"></div>
+            <span>Мои астероиды: {customAsteroids.length}</span>
+          </div>
+        </div>
+      </div>
+
       {selectedAsteroid && (
         <div className="p-4 bg-cyan-900/20 border-l-4 border-cyan-400">
           <h3 className="font-orbitron text-lg text-cyan-300 mb-2">
             ✅ Выбран: {selectedAsteroid.name}
+            {isCustomAsteroid(selectedAsteroid) && (
+              <span className="ml-2 text-purple-400 text-sm">🛠️ Кастомный</span>
+            )}
           </h3>
           <p className="text-sm text-cyan-200">
             Кликните на Землю чтобы запустить этот астероид!
@@ -209,66 +292,111 @@ const AsteroidsList: React.FC = () => {
         </div>
       )}
       
-      {asteroids.length === 0 ? (
-        <p className="p-4 font-space-mono">No asteroids found.</p>
+      {allAsteroids.length === 0 ? (
+        <div className="p-8 text-center">
+          <p className="font-space-mono text-gray-400 mb-4">Нет доступных астероидов</p>
+          <p className="text-sm text-gray-500">
+            Загрузите данные с сервера или создайте свой астероид
+          </p>
+        </div>
       ) : (
         <ul className="divide-y divide-gray-700">
-          {asteroids.map((a, idx) => (
+          {allAsteroids.map((asteroid, idx) => (
             <li
-              key={idx}
+              key={asteroid.id || idx}
               className={`p-6 hover:bg-slate-700/50 transition-all duration-300 cursor-pointer ${
-                selectedAsteroid?.name === a.name 
+                selectedAsteroid?.id === asteroid.id 
                   ? 'bg-cyan-900/30 border-l-4 border-cyan-400' 
-                  : a.is_potentially_hazardous_asteroid 
+                  : asteroid.is_potentially_hazardous_asteroid 
                     ? 'bg-red-900/20 hover:bg-red-900/30' 
+                    : isCustomAsteroid(asteroid)
+                    ? 'bg-purple-900/10 hover:bg-purple-900/20'
                     : ''
               }`}
-              onClick={() => handleAsteroidClick(a)}
+              onClick={() => handleAsteroidClick(asteroid)}
             >
               {/* Визуализация астероида */}
               <AsteroidVisual 
-                asteroid={a} 
-                isSelected={selectedAsteroid?.name === a.name}
+                asteroid={asteroid} 
+                isSelected={selectedAsteroid?.id === asteroid.id}
               />
 
               {/* Детальная информация */}
               <div className="space-y-2 font-inter text-gray-300">
-                <p className="flex items-center">
-                  <span className="w-40 text-gray-400">Дата сближения:</span>
-                  <span className="font-space-mono">{a.date}</span>
-                </p>
-                <p className="flex items-center">
-                  <span className="w-40 text-gray-400">Диаметр:</span>
-                  <span className="font-space-mono">
-                    {a.estimated_diameter.meters.estimated_diameter_min.toFixed(2)} м
-                  </span>
-                </p>
-                <p className="flex items-center">
-                  <span className="w-40 text-gray-400">Масса:</span>
-                  <span className="font-space-mono text-yellow-300">
-                    {formatMass(a.mass_kg)}
-                  </span>
-                </p>
-                <p className="flex items-center">
-                  <span className="w-40 text-gray-400">Скорость:</span>
-                  <span className="font-space-mono">
-                    {parseFloat(a.relative_velocity.kilometers_per_second).toFixed(2)} км/с
-                  </span>
-                </p>
-                <p className="flex items-center">
-                  <span className="w-40 text-gray-400">Расстояние:</span>
-                  <span className="font-space-mono">
-                    {(parseFloat(a.miss_distance.kilometers)/1000).toFixed(0)} тыс. км
-                  </span>
-                </p>
+                {isCustomAsteroid(asteroid) ? (
+                  // Информация для кастомных астероидов
+                  <>
+                    <p className="flex items-center">
+                      <span className="w-40 text-gray-400">Тип:</span>
+                      <span className="font-space-mono text-purple-400">🛠️ Кастомный</span>
+                    </p>
+                    <p className="flex items-center">
+                      <span className="w-40 text-gray-400">Диаметр:</span>
+                      <span className="font-space-mono">
+                        {asteroid.diameter.toFixed(2)} м
+                      </span>
+                    </p>
+                    <p className="flex items-center">
+                      <span className="w-40 text-gray-400">Масса:</span>
+                      <span className="font-space-mono text-yellow-300">
+                        {formatMass(asteroid.mass_kg)}
+                      </span>
+                    </p>
+                    <p className="flex items-center">
+                      <span className="w-40 text-gray-400">Скорость:</span>
+                      <span className="font-space-mono">
+                        {asteroid.velocity.toFixed(2)} км/с
+                      </span>
+                    </p>
+                    <p className="flex items-center">
+                      <span className="w-40 text-gray-400">Создан:</span>
+                      <span className="font-space-mono">
+                        {new Date(asteroid.created_at).toLocaleDateString('ru-RU')}
+                      </span>
+                    </p>
+                  </>
+                ) : (
+                  // Информация для NASA астероидов
+                  <>
+                    <p className="flex items-center">
+                      <span className="w-40 text-gray-400">Дата сближения:</span>
+                      <span className="font-space-mono">{asteroid.date}</span>
+                    </p>
+                    <p className="flex items-center">
+                      <span className="w-40 text-gray-400">Диаметр:</span>
+                      <span className="font-space-mono">
+                        {asteroid.estimated_diameter.meters.estimated_diameter_min.toFixed(2)} м
+                      </span>
+                    </p>
+                    <p className="flex items-center">
+                      <span className="w-40 text-gray-400">Масса:</span>
+                      <span className="font-space-mono text-yellow-300">
+                        {formatMass(asteroid.mass_kg)}
+                      </span>
+                    </p>
+                    <p className="flex items-center">
+                      <span className="w-40 text-gray-400">Скорость:</span>
+                      <span className="font-space-mono">
+                        {parseFloat(asteroid.relative_velocity.kilometers_per_second).toFixed(2)} км/с
+                      </span>
+                    </p>
+                    <p className="flex items-center">
+                      <span className="w-40 text-gray-400">Расстояние:</span>
+                      <span className="font-space-mono">
+                        {(parseFloat(asteroid.miss_distance.kilometers)/1000).toFixed(0)} тыс. км
+                      </span>
+                    </p>
+                  </>
+                )}
+                
                 <p className="flex items-center mt-4">
                   <span className="w-40 text-gray-400">Опасность:</span>
                   <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    a.is_potentially_hazardous_asteroid 
+                    asteroid.is_potentially_hazardous_asteroid 
                       ? 'bg-red-500/20 text-red-400' 
                       : 'bg-green-500/20 text-green-400'
                   }`}>
-                    {a.is_potentially_hazardous_asteroid ? '⚠️ Опасен' : '✅ Безопасен'}
+                    {asteroid.is_potentially_hazardous_asteroid ? '⚠️ Опасен' : '✅ Безопасен'}
                   </span>
                 </p>
               </div>

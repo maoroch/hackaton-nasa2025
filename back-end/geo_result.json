@@ -1,5 +1,333 @@
 [
   {
+    "lat": 14.275801381327366,
+    "lon": 78.01282725264885,
+    "eco_name": "Deccan thorn scrub forests",
+    "biome": 13.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T18:31:17.425650"
+  },
+  {
+    "lat": 24.8968006367622,
+    "lon": 63.66258444127364,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T18:27:34.649064"
+  },
+  {
+    "lat": 6.0105537446076625,
+    "lon": 20.167488477276716,
+    "eco_name": "Northern Congolian forest-savanna mosaic",
+    "biome": 7.0,
+    "realm": "AT",
+    "timestamp": "2025-10-05T18:23:20.877509"
+  },
+  {
+    "lat": 16.820938504271613,
+    "lon": 79.5322390373838,
+    "eco_name": "Central Deccan Plateau dry deciduous forests",
+    "biome": 2.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T18:23:12.911271"
+  },
+  {
+    "lat": 25.728808134857406,
+    "lon": 8.85353021941334,
+    "eco_name": "West Saharan montane xeric woodlands",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T18:19:54.405581"
+  },
+  {
+    "lat": 17.05301406059665,
+    "lon": 75.09387788987587,
+    "eco_name": "Deccan thorn scrub forests",
+    "biome": 13.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T18:19:45.966012"
+  },
+  {
+    "lat": 25.688580686537215,
+    "lon": 15.331260442753633,
+    "eco_name": "Sahara desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T18:19:38.769106"
+  },
+  {
+    "lat": 19.383401166940658,
+    "lon": 76.48368853849959,
+    "eco_name": "Deccan thorn scrub forests",
+    "biome": 13.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T18:18:56.497136"
+  },
+  {
+    "lat": 40.289069944934354,
+    "lon": 59.59490766137255,
+    "eco_name": "Central Asian southern desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T18:17:04.023873"
+  },
+  {
+    "lat": 42.87550800004819,
+    "lon": 56.56605089920712,
+    "eco_name": "Central Asian northern desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T18:17:03.539061"
+  },
+  {
+    "lat": 78.82973365823335,
+    "lon": 48.90644392836992,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T18:16:51.907832"
+  },
+  {
+    "lat": 62.440903365159485,
+    "lon": 84.71086426078448,
+    "eco_name": "West Siberian taiga",
+    "biome": 6.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T18:16:47.797006"
+  },
+  {
+    "lat": 55.921236473626195,
+    "lon": 168.42693080690043,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T18:16:19.314010"
+  },
+  {
+    "lat": 9.806495856485396,
+    "lon": -141.51183679163216,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T18:15:30.117958"
+  },
+  {
+    "lat": 15.37964595696028,
+    "lon": -125.07273606962885,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T18:15:23.617361"
+  },
+  {
+    "lat": 8.584498533274553,
+    "lon": -36.96085709488496,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T18:15:17.249084"
+  },
+  {
+    "lat": 80.22623935531277,
+    "lon": 19.71428006271684,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T18:14:52.250019"
+  },
+  {
+    "lat": 39.672458476277455,
+    "lon": 4.025964086654347,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T18:14:45.652775"
+  },
+  {
+    "lat": -2.1089820577062266,
+    "lon": 109.340231868187,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T18:14:41.741243"
+  },
+  {
+    "lat": 17.70515980720936,
+    "lon": 179.6185802991616,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T18:14:37.670194"
+  },
+  {
+    "lat": -0.6272078685075161,
+    "lon": 145.7566922604616,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T18:14:32.317164"
+  },
+  {
+    "lat": 20.26212881276031,
+    "lon": 102.31540078542831,
+    "eco_name": "Northern Thailand-Laos moist deciduous forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T18:14:26.044495"
+  },
+  {
+    "lat": 34.86843953674284,
+    "lon": 85.18738955254543,
+    "eco_name": "North Tibetan Plateau-Kunlun Mountains alpine desert",
+    "biome": 10.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T18:14:04.050352"
+  },
+  {
+    "lat": 14.5567130365708,
+    "lon": 76.9361130686574,
+    "eco_name": "Deccan thorn scrub forests",
+    "biome": 13.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T18:13:32.725018"
+  },
+  {
+    "lat": 13.161550854778083,
+    "lon": 81.05638136408325,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T18:11:49.913025"
+  },
+  {
+    "lat": 26.67403288129235,
+    "lon": 81.16990071446209,
+    "eco_name": "Upper Gangetic Plains moist deciduous forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T18:08:48.831728"
+  },
+  {
+    "lat": 17.957565559607456,
+    "lon": 106.68363304893879,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T18:00:18.187965"
+  },
+  {
+    "lat": 17.68131712611185,
+    "lon": 79.23094829713277,
+    "eco_name": "Central Deccan Plateau dry deciduous forests",
+    "biome": 2.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T18:00:07.111197"
+  },
+  {
+    "lat": 23.60143237055979,
+    "lon": 20.51527460117407,
+    "eco_name": "Sahara desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T17:47:17.635344"
+  },
+  {
+    "lat": 47.65525605453744,
+    "lon": 69.77809192523095,
+    "eco_name": "Kazakh semi-desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T17:46:58.694210"
+  },
+  {
+    "lat": 36.19526314813825,
+    "lon": 59.84685742982437,
+    "eco_name": "Central Persian desert basins",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T17:45:40.472547"
+  },
+  {
+    "lat": 41.45009519821041,
+    "lon": 72.60277115028782,
+    "eco_name": "Gissaro-Alai open woodlands",
+    "biome": 8.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T17:45:32.492080"
+  },
+  {
+    "lat": 30.870240492883926,
+    "lon": 74.10728023276296,
+    "eco_name": "Northwestern thorn scrub forests",
+    "biome": 13.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T17:45:23.110900"
+  },
+  {
+    "lat": 21.497653599682472,
+    "lon": 79.04099829071552,
+    "eco_name": "Central Deccan Plateau dry deciduous forests",
+    "biome": 2.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T17:45:07.747214"
+  },
+  {
+    "lat": 39.584725024376276,
+    "lon": 78.96122200723603,
+    "eco_name": "Taklimakan desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T17:36:09.690508"
+  },
+  {
+    "lat": 29.348633990367162,
+    "lon": 71.75956541457106,
+    "eco_name": "Thar desert",
+    "biome": 13.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T17:33:08.780791"
+  },
+  {
+    "lat": 31.915110049095528,
+    "lon": 79.38269535233263,
+    "eco_name": "Western Himalayan alpine shrub and Meadows",
+    "biome": 10.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T17:30:07.367478"
+  },
+  {
+    "lat": 5.1774941180263285,
+    "lon": 79.5440322670483,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T17:30:01.443567"
+  },
+  {
+    "lat": 18.86515070517313,
+    "lon": 98.82685548858674,
+    "eco_name": "Kayah-Karen montane rain forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T17:26:29.042084"
+  },
+  {
+    "lat": 15.136119846711273,
+    "lon": 78.4327614257096,
+    "eco_name": "Central Deccan Plateau dry deciduous forests",
+    "biome": 2.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T17:26:05.283818"
+  },
+  {
+    "lat": 16.636650918504873,
+    "lon": 78.11028439406594,
+    "eco_name": "Central Deccan Plateau dry deciduous forests",
+    "biome": 2.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T17:09:04.083140"
+  },
+  {
     "lat": 57.050440101265856,
     "lon": 114.78756343310076,
     "eco_name": "East Siberian taiga",
