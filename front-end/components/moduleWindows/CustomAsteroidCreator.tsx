@@ -38,7 +38,7 @@ const CustomAsteroidCreator = ({ isOpen, onClose, onCreateAsteroid }: CustomAste
   const [scale, setScale] = useState(0.8);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Расчет визуального размера астероида
+  // Asteroid size visualization calculation
   const getAsteroidSize = (diameter: number) => {
     const minDiameter = 1;
     const maxDiameter = 1000;
@@ -53,7 +53,7 @@ const CustomAsteroidCreator = ({ isOpen, onClose, onCreateAsteroid }: CustomAste
     return minSize + normalized * (maxSize - minSize);
   };
 
-  // Расчет цвета в зависимости от размера и плотности
+  // Color calculation based on size and density
   const getAsteroidColor = (diameter: number, density: number) => {
     const sizeFactor = Math.min(diameter / 500, 1);
     const densityFactor = Math.min((density - 1000) / 7000, 1);
@@ -65,14 +65,14 @@ const CustomAsteroidCreator = ({ isOpen, onClose, onCreateAsteroid }: CustomAste
     return `rgb(${red}, ${green}, ${blue})`;
   };
 
-  // Расчеты при изменении параметров
+  // Calculations when parameters change
   useEffect(() => {
     if (isOpen) {
       calculateImpact();
     }
   }, [formData, isOpen]);
 
-  // Анимация появления
+  // Appearance animation
   useEffect(() => {
     if (isOpen) {
       setOpacity(1);
@@ -86,18 +86,18 @@ const CustomAsteroidCreator = ({ isOpen, onClose, onCreateAsteroid }: CustomAste
   const calculateImpact = () => {
     const { diameter, density, velocity, angle } = formData;
     
-    // Расчет массы (сфера)
+    // Mass calculation (sphere)
     const radius = diameter / 2;
     const volume = (4 / 3) * Math.PI * Math.pow(radius, 3);
     const mass = volume * density;
     
-    // Кинетическая энергия (0.5 * m * v^2)
+    // Kinetic energy (0.5 * m * v^2)
     const kinetic_energy = 0.5 * mass * Math.pow(velocity * 1000, 2);
     
-    // Учет угла падения
+    // Impact angle consideration
     const angleFactor = Math.sin(angle * Math.PI / 180);
     
-    // Расчет кратера
+    // Crater calculation
     const crater_diameter = diameter * 20 * angleFactor;
     const ejecta_radius = crater_diameter * 1.2;
     const dust_height = crater_diameter * 0.1;
@@ -116,9 +116,9 @@ const CustomAsteroidCreator = ({ isOpen, onClose, onCreateAsteroid }: CustomAste
       setIsSubmitting(true);
       
       try {
-        console.log("🚀 Отправка данных на сервер:", formData);
+        console.log("🚀 Sending data to server:", formData);
         
-        // Отправляем данные на сервер Flask
+        // Send data to Flask server
         const response = await fetch("http://127.0.0.1:5000/api/asteroids/custom", {
           method: "POST",
           headers: {
@@ -133,20 +133,20 @@ const CustomAsteroidCreator = ({ isOpen, onClose, onCreateAsteroid }: CustomAste
         }
 
         const result = await response.json();
-        console.log("✅ Астероид создан на сервере:", result.asteroid);
+        console.log("✅ Asteroid created on server:", result.asteroid);
         
-        // Вызываем колбэк с данными
+        // Call callback with data
         onCreateAsteroid(formData, impactResult);
         
-        // Показываем сообщение об успехе
-        alert(`✅ Астероид "${formData.name}" создан и сохранен на сервере!`);
+        // Show success message
+        console.log(`✅ Asteroid "${formData.name}" created and saved on server!`);
         
-        // Закрываем модальное окно
+        // Close modal window
         onClose();
         
       } catch (error) {
-        console.error("❌ Ошибка при создании астероида:", error);
-        alert(`❌ Ошибка при создании астероида: ${error.message}`);
+        console.error("❌ Error creating asteroid:", error);
+        console.log (`❌ Error creating asteroid: ${error.message}`);
       } finally {
         setIsSubmitting(false);
       }
@@ -174,7 +174,7 @@ const CustomAsteroidCreator = ({ isOpen, onClose, onCreateAsteroid }: CustomAste
         onClick={onClose}
       />
       
-      {/* Основное модальное окно */}
+      {/* Main modal window */}
       <div
         className="bg-gradient-to-br from-blue-900/95 via-purple-900/90 to-indigo-800/85 backdrop-blur-xl rounded-2xl p-6 max-w-4xl w-full mx-4 shadow-2xl border border-blue-400/20 pointer-events-auto relative transition-all duration-500 ease-out"
         style={{ 
@@ -196,23 +196,23 @@ const CustomAsteroidCreator = ({ isOpen, onClose, onCreateAsteroid }: CustomAste
             <div className="flex items-center justify-center space-x-3 mb-2">
               <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
               <h2 className="text-2xl font-orbitron text-blue-300 font-bold">
-                🚀 СОЗДАТЬ МЕТЕОРИТ
+                🚀 CREATE ASTEROID
               </h2>
               <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse delay-300"></div>
             </div>
             <p className="text-blue-200/80 font-space-mono text-sm">
-              Настройте параметры и посмотрите результат удара
+              Configure parameters and see the impact results
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Левая колонка - Визуализация */}
+              {/* Left column - Visualization */}
               <div className="flex flex-col items-center justify-center space-y-4">
                 <div className="bg-blue-900/30 rounded-lg p-6 w-full text-center">
-                  <h3 className="font-orbitron text-blue-300 text-sm mb-4">ВИЗУАЛИЗАЦИЯ</h3>
+                  <h3 className="font-orbitron text-blue-300 text-sm mb-4">VISUALIZATION</h3>
                   
-                  {/* Астероид */}
+                  {/* Asteroid */}
                   <div className="flex flex-col items-center justify-center space-y-4">
                     <div
                       className="rounded-full relative shadow-2xl transition-all duration-500 ease-out"
@@ -227,29 +227,29 @@ const CustomAsteroidCreator = ({ isOpen, onClose, onCreateAsteroid }: CustomAste
                         `
                       }}
                     >
-                      {/* Кратеры на поверхности */}
+                      {/* Surface craters */}
                       <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-gray-800/50 rounded-full"></div>
                       <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-gray-900/60 rounded-full"></div>
                       <div className="absolute bottom-1/4 left-1/3 w-2 h-2 bg-gray-700/40 rounded-full"></div>
                     </div>
                     
-                    {/* Информация о размере */}
+                    {/* Size information */}
                     <div className="text-center">
                       <p className="text-blue-200 font-space-mono text-sm">
-                        Диаметр: <span className="text-white">{formData.diameter} м</span>
+                        Diameter: <span className="text-white">{formData.diameter} m</span>
                       </p>
                       <p className="text-blue-200 font-space-mono text-sm">
-                        Масштаб: 1:{Math.round(1000 / asteroidSize)}
+                        Scale: 1:{Math.round(1000 / asteroidSize)}
                       </p>
                     </div>
                   </div>
 
-                  {/* Сравнительная шкала */}
+                  {/* Comparative scale */}
                   <div className="mt-6 space-y-2">
                     <div className="flex justify-between text-xs text-blue-300">
-                      <span>Маленький</span>
-                      <span>Средний</span>
-                      <span>Большой</span>
+                      <span>Small</span>
+                      <span>Medium</span>
+                      <span>Large</span>
                     </div>
                     <div className="w-full bg-blue-800/20 rounded-full h-2">
                       <div 
@@ -260,34 +260,34 @@ const CustomAsteroidCreator = ({ isOpen, onClose, onCreateAsteroid }: CustomAste
                       ></div>
                     </div>
                     <div className="flex justify-between text-xs text-blue-300">
-                      <span>10 м</span>
-                      <span>100 м</span>
-                      <span>1 км</span>
+                      <span>10 m</span>
+                      <span>100 m</span>
+                      <span>1 km</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Центральная колонка - Параметры */}
+              {/* Central column - Parameters */}
               <div className="space-y-4">
-                {/* Название */}
+                {/* Name */}
                 <div className="bg-blue-900/30 rounded-lg p-4">
-                  <h3 className="font-orbitron text-blue-300 text-sm mb-3">НАЗВАНИЕ МЕТЕОРИТА</h3>
+                  <h3 className="font-orbitron text-blue-300 text-sm mb-3">ASTEROID NAME</h3>
                   <input
                     type="text"
                     value={formData.name}
                     onChange={(e) => handleInputChange('name', e.target.value)}
-                    placeholder="Введите название..."
+                    placeholder="Enter name..."
                     className="w-full bg-blue-800/20 border border-blue-600/30 rounded-lg px-3 py-2 text-white font-space-mono placeholder-blue-300/50 focus:outline-none focus:border-blue-400 transition-colors"
                     required
                     disabled={isSubmitting}
                   />
                 </div>
 
-                {/* Диаметр */}
+                {/* Diameter */}
                 <div className="bg-purple-900/30 rounded-lg p-4">
                   <h3 className="font-orbitron text-purple-300 text-sm mb-3">
-                    ДИАМЕТЕР: {formData.diameter} м
+                    DIAMETER: {formData.diameter} m
                   </h3>
                   <input
                     type="range"
@@ -299,15 +299,15 @@ const CustomAsteroidCreator = ({ isOpen, onClose, onCreateAsteroid }: CustomAste
                     disabled={isSubmitting}
                   />
                   <div className="flex justify-between text-xs text-purple-200 mt-2">
-                    <span>1 м</span>
-                    <span>1000 м</span>
+                    <span>1 m</span>
+                    <span>1000 m</span>
                   </div>
                 </div>
 
-                {/* Плотность */}
+                {/* Density */}
                 <div className="bg-indigo-900/30 rounded-lg p-4">
                   <h3 className="font-orbitron text-indigo-300 text-sm mb-3">
-                    ПЛОТНОСТЬ: {formData.density} кг/м³
+                    DENSITY: {formData.density} kg/m³
                   </h3>
                   <input
                     type="range"
@@ -320,23 +320,23 @@ const CustomAsteroidCreator = ({ isOpen, onClose, onCreateAsteroid }: CustomAste
                     disabled={isSubmitting}
                   />
                   <div className="flex justify-between text-xs text-indigo-200 mt-2">
-                    <span>1000 кг/м³</span>
-                    <span>8000 кг/м³</span>
+                    <span>1000 kg/m³</span>
+                    <span>8000 kg/m³</span>
                   </div>
                   <p className="text-xs text-indigo-300/70 mt-2">
-                    {formData.density < 2000 ? 'Лёгкий (лед)' : 
-                     formData.density < 4000 ? 'Средний (камень)' : 
-                     formData.density < 6000 ? 'Тяжёлый (металл)' : 'Очень тяжёлый'}
+                    {formData.density < 2000 ? 'Light (ice)' : 
+                     formData.density < 4000 ? 'Medium (stone)' : 
+                     formData.density < 6000 ? 'Heavy (metal)' : 'Very heavy'}
                   </p>
                 </div>
               </div>
 
-              {/* Правая колонка - Параметры и результаты */}
+              {/* Right column - Parameters and results */}
               <div className="space-y-4">
-                {/* Скорость */}
+                {/* Velocity */}
                 <div className="bg-blue-900/30 rounded-lg p-4">
                   <h3 className="font-orbitron text-blue-300 text-sm mb-3">
-                    СКОРОСТЬ: {formData.velocity} км/с
+                    VELOCITY: {formData.velocity} km/s
                   </h3>
                   <input
                     type="range"
@@ -348,20 +348,20 @@ const CustomAsteroidCreator = ({ isOpen, onClose, onCreateAsteroid }: CustomAste
                     disabled={isSubmitting}
                   />
                   <div className="flex justify-between text-xs text-blue-200 mt-2">
-                    <span>1 км/с</span>
-                    <span>72 км/с</span>
+                    <span>1 km/s</span>
+                    <span>72 km/s</span>
                   </div>
                   <p className="text-xs text-blue-300/70 mt-2">
-                    {formData.velocity < 10 ? 'Медленная' : 
-                     formData.velocity < 30 ? 'Средняя' : 
-                     formData.velocity < 50 ? 'Высокая' : 'Очень высокая'}
+                    {formData.velocity < 10 ? 'Slow' : 
+                     formData.velocity < 30 ? 'Medium' : 
+                     formData.velocity < 50 ? 'High' : 'Very high'}
                   </p>
                 </div>
 
-                {/* Угол падения */}
+                {/* Impact angle */}
                 <div className="bg-purple-900/30 rounded-lg p-4">
                   <h3 className="font-orbitron text-purple-300 text-sm mb-3">
-                    УГОЛ ПАДЕНИЯ: {formData.angle}°
+                    IMPACT ANGLE: {formData.angle}°
                   </h3>
                   <input
                     type="range"
@@ -377,24 +377,24 @@ const CustomAsteroidCreator = ({ isOpen, onClose, onCreateAsteroid }: CustomAste
                     <span>90°</span>
                   </div>
                   <p className="text-xs text-purple-300/70 mt-2">
-                    {formData.angle === 90 ? 'Вертикальное падение' : 
-                     formData.angle >= 60 ? 'Крутой угол' :
-                     formData.angle >= 30 ? 'Средний угол' : 'Пологий угол'}
+                    {formData.angle === 90 ? 'Vertical impact' : 
+                     formData.angle >= 60 ? 'Steep angle' :
+                     formData.angle >= 30 ? 'Medium angle' : 'Shallow angle'}
                   </p>
                 </div>
 
-                {/* Предварительные результаты */}
+                {/* Preliminary results */}
                 {impactResult && (
                   <div className="bg-gradient-to-r from-green-900/30 to-emerald-800/30 rounded-lg p-4 border border-green-500/20">
-                    <h3 className="font-orbitron text-green-300 text-sm mb-3">ПРЕДВАРИТЕЛЬНЫЙ РАСЧЕТ</h3>
+                    <h3 className="font-orbitron text-green-300 text-sm mb-3">PRELIMINARY CALCULATION</h3>
                     <div className="space-y-2 font-space-mono text-sm">
                       <p className="flex justify-between">
-                        <span className="text-green-200">Кинетическая энергия:</span>
-                        <span className="text-white">{impactResult.kinetic_energy.toExponential(2)} Дж</span>
+                        <span className="text-green-200">Kinetic energy:</span>
+                        <span className="text-white">{impactResult.kinetic_energy.toExponential(2)} J</span>
                       </p>
                       <p className="flex justify-between">
-                        <span className="text-green-200">Диаметр кратера:</span>
-                        <span className="text-white">{impactResult.crater_diameter.toFixed(1)} м</span>
+                        <span className="text-green-200">Crater diameter:</span>
+                        <span className="text-white">{impactResult.crater_diameter.toFixed(1)} m</span>
                       </p>
                     </div>
                   </div>
@@ -402,32 +402,32 @@ const CustomAsteroidCreator = ({ isOpen, onClose, onCreateAsteroid }: CustomAste
               </div>
             </div>
 
-            {/* Детальные результаты */}
+            {/* Detailed results */}
             {impactResult && (
               <div className="bg-gradient-to-r from-amber-900/30 to-orange-800/30 rounded-lg p-4 border border-amber-500/20">
-                <h3 className="font-orbitron text-amber-300 text-sm mb-3">ДЕТАЛЬНЫЕ РЕЗУЛЬТАТЫ УДАРА</h3>
+                <h3 className="font-orbitron text-amber-300 text-sm mb-3">DETAILED IMPACT RESULTS</h3>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 font-space-mono text-sm">
                   <div className="text-center">
-                    <p className="text-amber-200">Кинетическая энергия</p>
-                    <p className="text-white text-lg">{impactResult.kinetic_energy.toExponential(2)} Дж</p>
+                    <p className="text-amber-200">Kinetic energy</p>
+                    <p className="text-white text-lg">{impactResult.kinetic_energy.toExponential(2)} J</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-amber-200">Кратер</p>
-                    <p className="text-white text-lg">{impactResult.crater_diameter.toFixed(1)} м</p>
+                    <p className="text-amber-200">Crater</p>
+                    <p className="text-white text-lg">{impactResult.crater_diameter.toFixed(1)} m</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-amber-200">Радиус выброса</p>
-                    <p className="text-white text-lg">{impactResult.ejecta_radius.toFixed(1)} м</p>
+                    <p className="text-amber-200">Ejecta radius</p>
+                    <p className="text-white text-lg">{impactResult.ejecta_radius.toFixed(1)} m</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-amber-200">Высота пыли</p>
-                    <p className="text-white text-lg">{impactResult.dust_height.toFixed(1)} м</p>
+                    <p className="text-amber-200">Dust height</p>
+                    <p className="text-white text-lg">{impactResult.dust_height.toFixed(1)} m</p>
                   </div>
                 </div>
               </div>
             )}
 
-            {/* Кнопки действий */}
+            {/* Action buttons */}
             <div className="flex space-x-4 pt-4">
               <button
                 type="button"
@@ -435,7 +435,7 @@ const CustomAsteroidCreator = ({ isOpen, onClose, onCreateAsteroid }: CustomAste
                 disabled={isSubmitting}
                 className="flex-1 bg-gray-700/50 hover:bg-gray-600/50 text-gray-300 font-orbitron py-3 rounded-lg border border-gray-600/30 transition-all duration-200 hover:border-gray-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                ОТМЕНА
+                CANCEL
               </button>
               <button
                 type="submit"
@@ -445,10 +445,10 @@ const CustomAsteroidCreator = ({ isOpen, onClose, onCreateAsteroid }: CustomAste
                 {isSubmitting ? (
                   <>
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                    СОЗДАНИЕ...
+                    CREATING...
                   </>
                 ) : (
-                  'СОЗДАТЬ МЕТЕОРИТ'
+                  'CREATE ASTEROID'
                 )}
               </button>
             </div>

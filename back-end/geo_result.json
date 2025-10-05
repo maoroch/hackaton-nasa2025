@@ -1,5 +1,786 @@
 [
   {
+    "lat": 46.13080472374854,
+    "lon": 93.00523807603626,
+    "eco_name": "Altai montane forest and forest steppe",
+    "biome": "5",
+    "realm": "PA",
+    "risk_level": "low",
+    "risk_description": "Относительно устойчивые экосистемы. Основные риски - локальные пожары и изменения микроклимата.",
+    "risk_factors": [
+      "local fires",
+      "microclimate changes"
+    ],
+    "timestamp": "2025-10-05T21:16:38.067021"
+  },
+  {
+    "lat": 26.603459581048952,
+    "lon": 71.98212770958011,
+    "eco_name": "Thar desert",
+    "biome": "13",
+    "realm": "IM",
+    "risk_level": "medium",
+    "risk_description": "Пожароопасные экосистемы. Удар увеличит риск масштабных лесных пожаров.",
+    "risk_factors": [
+      "wildfires",
+      "soil erosion",
+      "biodiversity loss"
+    ],
+    "timestamp": "2025-10-05T21:16:04.546627"
+  },
+  {
+    "lat": 38.228015970965195,
+    "lon": 98.96894906976063,
+    "eco_name": "Qilian Mountains subalpine meadows",
+    "biome": "10",
+    "realm": "PA",
+    "risk_level": "high",
+    "risk_description": "Горные экосистемы уязвимы к оползням и изменениям ледникового покрова.",
+    "risk_factors": [
+      "landslides",
+      "glacial melt",
+      "avalanches"
+    ],
+    "timestamp": "2025-10-05T21:13:42.972687"
+  },
+  {
+    "lat": 51.48774555163168,
+    "lon": 122.86280849042271,
+    "eco_name": "Da Hinggan-Dzhagdy Mountains conifer forests",
+    "biome": "5",
+    "realm": "PA",
+    "risk_level": "low",
+    "risk_description": "Относительно устойчивые экосистемы. Основные риски - локальные пожары и изменения микроклимата.",
+    "risk_factors": [
+      "local fires",
+      "microclimate changes"
+    ],
+    "timestamp": "2025-10-05T21:13:04.383513"
+  },
+  {
+    "lat": 43.137135829199956,
+    "lon": 87.85355915169828,
+    "eco_name": "Taklimakan desert",
+    "biome": "13",
+    "realm": "PA",
+    "risk_level": "medium",
+    "risk_description": "Пожароопасные экосистемы. Удар увеличит риск масштабных лесных пожаров.",
+    "risk_factors": [
+      "wildfires",
+      "soil erosion",
+      "biodiversity loss"
+    ],
+    "timestamp": "2025-10-05T21:12:11.992251"
+  },
+  {
+    "lat": 55.35859072225207,
+    "lon": 77.09344476779802,
+    "eco_name": "Kazakh forest steppe",
+    "biome": "8",
+    "realm": "PA",
+    "risk_level": "high",
+    "risk_description": "Затопленные экосистемы критически важны для водного баланса. Удар может вызвать цунами и засоление почв.",
+    "risk_factors": [
+      "tsunamis",
+      "soil salinization",
+      "wetland destruction"
+    ],
+    "timestamp": "2025-10-05T21:10:48.636212"
+  },
+  {
+    "lat": 14.404682974771495,
+    "lon": 75.03197960911218,
+    "eco_name": "North Western Ghats montane rain forests",
+    "biome": "1",
+    "realm": "IM",
+    "risk_level": "high",
+    "risk_description": "Удар усугубит потерю биоразнообразия, засуху и сдвиги в растительности. Глобальное охлаждение от пыли может вызвать массовую гибель растений.",
+    "risk_factors": [
+      "biodiversity loss",
+      "drought",
+      "ecosystem collapse",
+      "deforestation"
+    ],
+    "timestamp": "2025-10-05T21:09:47.472614"
+  },
+  {
+    "lat": 22.937542590273516,
+    "lon": 92.5212313353531,
+    "eco_name": "Mizoram-Manipur-Kachin rain forests",
+    "biome": "1",
+    "realm": "IM",
+    "risk_level": "high",
+    "risk_description": "Удар усугубит потерю биоразнообразия, засуху и сдвиги в растительности. Глобальное охлаждение от пыли может вызвать массовую гибель растений.",
+    "risk_factors": [
+      "biodiversity loss",
+      "drought",
+      "ecosystem collapse",
+      "deforestation"
+    ],
+    "timestamp": "2025-10-05T21:08:21.535287"
+  },
+  {
+    "lat": 27.32884760832468,
+    "lon": 82.19309160313718,
+    "eco_name": "Upper Gangetic Plains moist deciduous forests",
+    "biome": "1",
+    "realm": "IM",
+    "risk_level": "high",
+    "risk_description": "Удар усугубит потерю биоразнообразия, засуху и сдвиги в растительности. Глобальное охлаждение от пыли может вызвать массовую гибель растений.",
+    "risk_factors": [
+      "biodiversity loss",
+      "drought",
+      "ecosystem collapse",
+      "deforestation"
+    ],
+    "timestamp": "2025-10-05T21:07:31.310773"
+  },
+  {
+    "lat": 36.44433605966376,
+    "lon": 79.33485856708187,
+    "eco_name": "North Tibetan Plateau-Kunlun Mountains alpine desert",
+    "biome": "10",
+    "realm": "PA",
+    "risk_level": "high",
+    "risk_description": "Горные экосистемы уязвимы к оползням и изменениям ледникового покрова.",
+    "risk_factors": [
+      "landslides",
+      "glacial melt",
+      "avalanches"
+    ],
+    "timestamp": "2025-10-05T21:06:14.012702"
+  },
+  {
+    "lat": 20.123276303987033,
+    "lon": 80.61706612764829,
+    "eco_name": "Central Deccan Plateau dry deciduous forests",
+    "biome": "2",
+    "realm": "IM",
+    "risk_level": "medium",
+    "risk_description": "Сухие лиственные леса уязвимы к пожарам и эрозии почвы. Удар может вызвать опустынивание и потерю плодородного слоя.",
+    "risk_factors": [
+      "fires",
+      "soil erosion",
+      "desertification",
+      "habitat loss"
+    ],
+    "timestamp": "2025-10-05T21:02:42.626695"
+  },
+  {
+    "lat": 18.464491677038744,
+    "lon": 78.73447952806688,
+    "eco_name": "Central Deccan Plateau dry deciduous forests",
+    "biome": "2",
+    "realm": "IM",
+    "risk_level": "medium",
+    "risk_description": "Сухие лиственные леса уязвимы к пожарам и эрозии почвы. Удар может вызвать опустынивание и потерю плодородного слоя.",
+    "risk_factors": [
+      "fires",
+      "soil erosion",
+      "desertification",
+      "habitat loss"
+    ],
+    "timestamp": "2025-10-05T21:00:04.979110"
+  },
+  {
+    "lat": 50.04263006677438,
+    "lon": 138.0162389984124,
+    "eco_name": "Okhotsk-Manchurian taiga",
+    "biome": "6",
+    "realm": "PA",
+    "risk_level": "low",
+    "risk_description": "Пустынные экосистемы более устойчивы к ударам. Основной риск - долгосрочные пылевые бури.",
+    "risk_factors": [
+      "dust storms",
+      "temperature extremes"
+    ],
+    "timestamp": "2025-10-05T20:55:14.279223"
+  },
+  {
+    "lat": 46.70042479204025,
+    "lon": 107.15248887756871,
+    "eco_name": "Mongolian-Manchurian grassland",
+    "biome": "8",
+    "realm": "PA",
+    "risk_level": "high",
+    "risk_description": "Затопленные экосистемы критически важны для водного баланса. Удар может вызвать цунами и засоление почв.",
+    "risk_factors": [
+      "tsunamis",
+      "soil salinization",
+      "wetland destruction"
+    ],
+    "timestamp": "2025-10-05T20:55:08.081191"
+  },
+  {
+    "lat": 38.92747267837252,
+    "lon": 101.63428654741331,
+    "eco_name": "Alashan Plateau semi-desert",
+    "biome": "13",
+    "realm": "PA",
+    "risk_level": "medium",
+    "risk_description": "Пожароопасные экосистемы. Удар увеличит риск масштабных лесных пожаров.",
+    "risk_factors": [
+      "wildfires",
+      "soil erosion",
+      "biodiversity loss"
+    ],
+    "timestamp": "2025-10-05T20:54:57.149794"
+  },
+  {
+    "lat": 15.541523762843193,
+    "lon": 77.26670036702427,
+    "eco_name": "Deccan thorn scrub forests",
+    "biome": "13",
+    "realm": "IM",
+    "risk_level": "medium",
+    "risk_description": "Пожароопасные экосистемы. Удар увеличит риск масштабных лесных пожаров.",
+    "risk_factors": [
+      "wildfires",
+      "soil erosion",
+      "biodiversity loss"
+    ],
+    "timestamp": "2025-10-05T20:54:48.714381"
+  },
+  {
+    "lat": 46.7978227404679,
+    "lon": 82.34295733580517,
+    "eco_name": "Altai steppe and semi-desert",
+    "biome": "8",
+    "realm": "PA",
+    "risk_level": "high",
+    "risk_description": "Затопленные экосистемы критически важны для водного баланса. Удар может вызвать цунами и засоление почв.",
+    "risk_factors": [
+      "tsunamis",
+      "soil salinization",
+      "wetland destruction"
+    ],
+    "timestamp": "2025-10-05T20:52:14.617548"
+  },
+  {
+    "lat": 39.339778551774934,
+    "lon": 99.07333777987799,
+    "eco_name": "Alashan Plateau semi-desert",
+    "biome": "13",
+    "realm": "PA",
+    "risk_level": "medium",
+    "risk_description": "Пожароопасные экосистемы. Удар увеличит риск масштабных лесных пожаров.",
+    "risk_factors": [
+      "wildfires",
+      "soil erosion",
+      "biodiversity loss"
+    ],
+    "timestamp": "2025-10-05T20:52:07.772751"
+  },
+  {
+    "lat": 39.367195526748816,
+    "lon": 73.19450093792982,
+    "eco_name": "Rock and Ice",
+    "biome": "99",
+    "realm": null,
+    "risk_level": "medium",
+    "risk_description": "Океанические экосистемы. Риск цунами, изменения кислотности океана, нарушение морских пищевых цепей.",
+    "risk_factors": [
+      "tsunamis",
+      "ocean acidification",
+      "marine ecosystem disruption"
+    ],
+    "timestamp": "2025-10-05T20:52:01.064802"
+  },
+  {
+    "lat": 17.55274108655759,
+    "lon": 50.92212041651357,
+    "eco_name": "Red Sea Nubo-Sindian tropical desert and semi-desert",
+    "biome": "13",
+    "realm": "PA",
+    "risk_level": "medium",
+    "risk_description": "Пожароопасные экосистемы. Удар увеличит риск масштабных лесных пожаров.",
+    "risk_factors": [
+      "wildfires",
+      "soil erosion",
+      "biodiversity loss"
+    ],
+    "timestamp": "2025-10-05T20:51:53.074151"
+  },
+  {
+    "lat": 34.90969562518629,
+    "lon": 73.8869581717352,
+    "eco_name": "Northwestern Himalayan alpine shrub and meadows",
+    "biome": "10",
+    "realm": "PA",
+    "risk_level": "high",
+    "risk_description": "Горные экосистемы уязвимы к оползням и изменениям ледникового покрова.",
+    "risk_factors": [
+      "landslides",
+      "glacial melt",
+      "avalanches"
+    ],
+    "timestamp": "2025-10-05T20:50:26.326363"
+  },
+  {
+    "lat": 45.21118613430259,
+    "lon": 63.64693255509212,
+    "eco_name": "Central Asian northern desert",
+    "biome": "13",
+    "realm": "PA",
+    "risk_level": "medium",
+    "risk_description": "Пожароопасные экосистемы. Удар увеличит риск масштабных лесных пожаров.",
+    "risk_factors": [
+      "wildfires",
+      "soil erosion",
+      "biodiversity loss"
+    ],
+    "timestamp": "2025-10-05T20:49:41.143125"
+  },
+  {
+    "lat": 14.707744568335514,
+    "lon": 77.98124016868732,
+    "eco_name": "Deccan thorn scrub forests",
+    "biome": "13",
+    "realm": "IM",
+    "risk_level": "medium",
+    "risk_description": "Пожароопасные экосистемы. Удар увеличит риск масштабных лесных пожаров.",
+    "risk_factors": [
+      "wildfires",
+      "soil erosion",
+      "biodiversity loss"
+    ],
+    "timestamp": "2025-10-05T20:47:22.949786"
+  },
+  {
+    "lat": 14.707744568335514,
+    "lon": 77.98124016868732,
+    "eco_name": "Deccan thorn scrub forests",
+    "biome": "13",
+    "realm": "IM",
+    "risk_level": "medium",
+    "risk_description": "Пожароопасные экосистемы. Удар увеличит риск масштабных лесных пожаров.",
+    "risk_factors": [
+      "wildfires",
+      "soil erosion",
+      "biodiversity loss"
+    ],
+    "timestamp": "2025-10-05T20:47:12.666909"
+  },
+  {
+    "lat": 22.35328506368491,
+    "lon": 100.6988207024885,
+    "eco_name": "Northern Indochina subtropical forests",
+    "biome": "1",
+    "realm": "IM",
+    "risk_level": "high",
+    "risk_description": "Удар усугубит потерю биоразнообразия, засуху и сдвиги в растительности. Глобальное охлаждение от пыли может вызвать массовую гибель растений.",
+    "risk_factors": [
+      "biodiversity loss",
+      "drought",
+      "ecosystem collapse",
+      "deforestation"
+    ],
+    "timestamp": "2025-10-05T20:43:16.628398"
+  },
+  {
+    "lat": 12.449915868962046,
+    "lon": 78.96896303218514,
+    "eco_name": "South Deccan Plateau dry deciduous forests",
+    "biome": "2",
+    "realm": "IM",
+    "risk_level": "medium",
+    "risk_description": "Сухие лиственные леса уязвимы к пожарам и эрозии почвы. Удар может вызвать опустынивание и потерю плодородного слоя.",
+    "risk_factors": [
+      "fires",
+      "soil erosion",
+      "desertification",
+      "habitat loss"
+    ],
+    "timestamp": "2025-10-05T20:43:10.920083"
+  },
+  {
+    "lat": 23.064882251567195,
+    "lon": 79.88685800920301,
+    "eco_name": "Eastern highlands moist deciduous forests",
+    "biome": "1",
+    "realm": "IM",
+    "risk_level": "high",
+    "risk_description": "Удар усугубит потерю биоразнообразия, засуху и сдвиги в растительности. Глобальное охлаждение от пыли может вызвать массовую гибель растений.",
+    "risk_factors": [
+      "biodiversity loss",
+      "drought",
+      "ecosystem collapse",
+      "deforestation"
+    ],
+    "timestamp": "2025-10-05T20:43:03.858931"
+  },
+  {
+    "lat": 15.178676277598237,
+    "lon": 77.3957841594946,
+    "eco_name": "Deccan thorn scrub forests",
+    "biome": "13",
+    "realm": "IM",
+    "risk_level": "medium",
+    "risk_description": "Пожароопасные экосистемы. Удар увеличит риск масштабных лесных пожаров.",
+    "risk_factors": [
+      "wildfires",
+      "soil erosion",
+      "biodiversity loss"
+    ],
+    "timestamp": "2025-10-05T20:10:03.076351"
+  },
+  {
+    "lat": 14.707744568335514,
+    "lon": 77.98124016868732,
+    "eco_name": "Deccan thorn scrub forests",
+    "biome": "13",
+    "realm": "IM",
+    "risk_level": "medium",
+    "risk_description": "Пожароопасные экосистемы. Удар увеличит риск масштабных лесных пожаров.",
+    "risk_factors": [
+      "wildfires",
+      "soil erosion",
+      "biodiversity loss"
+    ],
+    "timestamp": "2025-10-05T20:07:29.996942"
+  },
+  {
+    "lat": 35.845306231547916,
+    "lon": 95.20943921315242,
+    "eco_name": "Central Tibetan Plateau alpine steppe",
+    "biome": "10",
+    "realm": "PA",
+    "risk_level": "high",
+    "risk_description": "Горные экосистемы уязвимы к оползням и изменениям ледникового покрова.",
+    "risk_factors": [
+      "landslides",
+      "glacial melt",
+      "avalanches"
+    ],
+    "timestamp": "2025-10-05T20:05:18.619424"
+  },
+  {
+    "lat": 14.647802167610578,
+    "lon": 77.36210937182088,
+    "eco_name": "Deccan thorn scrub forests",
+    "biome": "13",
+    "realm": "IM",
+    "risk_level": "medium",
+    "risk_description": "Пожароопасные экосистемы. Удар увеличит риск масштабных лесных пожаров.",
+    "risk_factors": [
+      "wildfires",
+      "soil erosion",
+      "biodiversity loss"
+    ],
+    "timestamp": "2025-10-05T20:05:11.472059"
+  },
+  {
+    "lat": 46.20866872467323,
+    "lon": 76.9767507267793,
+    "eco_name": "Central Asian northern desert",
+    "biome": "13",
+    "realm": "PA",
+    "risk_level": "medium",
+    "risk_description": "Пожароопасные экосистемы. Удар увеличит риск масштабных лесных пожаров.",
+    "risk_factors": [
+      "wildfires",
+      "soil erosion",
+      "biodiversity loss"
+    ],
+    "timestamp": "2025-10-05T20:04:36.085807"
+  },
+  {
+    "lat": 43.91871859249986,
+    "lon": 112.8425085700716,
+    "eco_name": "Eastern Gobi desert steppe",
+    "biome": "13",
+    "realm": "PA",
+    "risk_level": "medium",
+    "risk_description": "Пожароопасные экосистемы. Удар увеличит риск масштабных лесных пожаров.",
+    "risk_factors": [
+      "wildfires",
+      "soil erosion",
+      "biodiversity loss"
+    ],
+    "timestamp": "2025-10-05T20:04:29.291671"
+  },
+  {
+    "lat": 15.008365698572128,
+    "lon": 77.23954150122209,
+    "eco_name": "Deccan thorn scrub forests",
+    "biome": "13",
+    "realm": "IM",
+    "risk_level": "medium",
+    "risk_description": "Пожароопасные экосистемы. Удар увеличит риск масштабных лесных пожаров.",
+    "risk_factors": [
+      "wildfires",
+      "soil erosion",
+      "biodiversity loss"
+    ],
+    "timestamp": "2025-10-05T20:04:19.041854"
+  },
+  {
+    "lat": 16.75010445332556,
+    "lon": 99.37046539317069,
+    "eco_name": "Central Indochina dry forests",
+    "biome": 2.0,
+    "realm": "IM",
+    "risk_level": "medium",
+    "risk_description": "Сухие лиственные леса уязвимы к пожарам и эрозии почвы. Удар может вызвать опустынивание и потерю плодородного слоя.",
+    "risk_factors": [
+      "fires",
+      "soil erosion",
+      "desertification",
+      "habitat loss"
+    ],
+    "timestamp": "2025-10-05T20:00:48.383127"
+  },
+  {
+    "lat": 13.999155118932194,
+    "lon": 78.0515646662574,
+    "eco_name": "Deccan thorn scrub forests",
+    "biome": 13.0,
+    "realm": "IM",
+    "risk_level": "medium",
+    "risk_description": "Пожароопасные экосистемы. Удар увеличит риск масштабных лесных пожаров.",
+    "risk_factors": [
+      "wildfires",
+      "soil erosion",
+      "biodiversity loss"
+    ],
+    "timestamp": "2025-10-05T19:57:14.435668"
+  },
+  {
+    "lat": 32.87192817007283,
+    "lon": 82.18318924072307,
+    "eco_name": "Central Tibetan Plateau alpine steppe",
+    "biome": 10.0,
+    "realm": "PA",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для этого типа биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:52:16.249214"
+  },
+  {
+    "lat": 47.66674228560435,
+    "lon": 103.2075334725868,
+    "eco_name": "Mongolian-Manchurian grassland",
+    "biome": 8.0,
+    "realm": "PA",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для этого типа биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:50:15.676673"
+  },
+  {
+    "lat": 46.39392233943787,
+    "lon": 93.03213728931667,
+    "eco_name": "Altai alpine meadow and tundra",
+    "biome": 10.0,
+    "realm": "PA",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для этого типа биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:50:10.150292"
+  },
+  {
+    "lat": 42.24449229339602,
+    "lon": 83.63104744714232,
+    "eco_name": "Taklimakan desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для этого типа биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:49:11.357527"
+  },
+  {
+    "lat": 57.54100763724611,
+    "lon": 111.42346867418601,
+    "eco_name": "East Siberian taiga",
+    "biome": 6.0,
+    "realm": "PA",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для этого типа биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:48:50.714410"
+  },
+  {
+    "lat": 44.418076432031995,
+    "lon": 120.19618398977588,
+    "eco_name": "Mongolian-Manchurian grassland",
+    "biome": 8.0,
+    "realm": "PA",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для этого типа биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:48:40.945724"
+  },
+  {
+    "lat": 31.466375719356662,
+    "lon": 104.76823145226102,
+    "eco_name": "Sichuan Basin evergreen broadleaf forests",
+    "biome": 4.0,
+    "realm": "PA",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для этого типа биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:48:13.181105"
+  },
+  {
+    "lat": 38.7318902682495,
+    "lon": 109.8419327156695,
+    "eco_name": "Ordos Plateau steppe",
+    "biome": 10.0,
+    "realm": "PA",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для этого типа биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:48:06.660538"
+  },
+  {
+    "lat": 39.43870816422241,
+    "lon": 108.14205298372661,
+    "eco_name": "Ordos Plateau steppe",
+    "biome": 10.0,
+    "realm": "PA",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для этого типа биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:47:45.471121"
+  },
+  {
+    "lat": 11.3134124663178,
+    "lon": 74.09759691241707,
+    "eco_name": "Ocean",
+    "biome": "99",
+    "realm": "Oceanic",
+    "risk_level": "medium",
+    "risk_description": "Океанические экосистемы. Риск цунами, изменения кислотности океана, нарушение морских пищевых цепей.",
+    "risk_factors": [
+      "tsunamis",
+      "ocean acidification",
+      "marine ecosystem disruption"
+    ],
+    "timestamp": "2025-10-05T19:47:30.037960"
+  },
+  {
+    "lat": 14.577887738357735,
+    "lon": 75.09741063100032,
+    "eco_name": "North Western Ghats montane rain forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для этого типа биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:45:04.289074"
+  },
+  {
+    "lat": 16.117088766367733,
+    "lon": 76.55573801794075,
+    "eco_name": "Deccan thorn scrub forests",
+    "biome": 13.0,
+    "realm": "IM",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для этого типа биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:43:22.176556"
+  },
+  {
+    "lat": 47.16832962865273,
+    "lon": 103.91056026406362,
+    "eco_name": "Selenge-Orkhon forest steppe",
+    "biome": 8.0,
+    "realm": "PA",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для неизвестного биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:42:25.217864"
+  },
+  {
+    "lat": 15.541128624267058,
+    "lon": 79.05439196111706,
+    "eco_name": "Central Deccan Plateau dry deciduous forests",
+    "biome": 2.0,
+    "realm": "IM",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для неизвестного биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:41:02.186611"
+  },
+  {
+    "lat": 17.31976460451789,
+    "lon": 76.31880898591066,
+    "eco_name": "Deccan thorn scrub forests",
+    "biome": 13.0,
+    "realm": "IM",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для неизвестного биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:39:55.830786"
+  },
+  {
+    "lat": 16.629354079170113,
+    "lon": 78.99716317332803,
+    "eco_name": "Central Deccan Plateau dry deciduous forests",
+    "biome": 2.0,
+    "realm": "IM",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для неизвестного биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:38:38.190220"
+  },
+  {
+    "lat": 49.30890886857605,
+    "lon": 106.78298753456427,
+    "eco_name": "Trans-Baikal conifer forests",
+    "biome": 6.0,
+    "realm": "PA",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для неизвестного биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:38:27.634232"
+  },
+  {
+    "lat": 16.629354079170113,
+    "lon": 78.99716317332803,
+    "eco_name": "Central Deccan Plateau dry deciduous forests",
+    "biome": 2.0,
+    "realm": "IM",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для неизвестного биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:38:13.498902"
+  },
+  {
+    "lat": 19.645075757028074,
+    "lon": 103.60302445052943,
+    "eco_name": "Northern Indochina subtropical forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для неизвестного биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:37:48.738415"
+  },
+  {
+    "lat": 18.287766075733632,
+    "lon": 101.04673097426894,
+    "eco_name": "Northern Thailand-Laos moist deciduous forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для неизвестного биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:36:41.913900"
+  },
+  {
+    "lat": 17.387287342550454,
+    "lon": 101.54131734114073,
+    "eco_name": "Luang Prabang montane rain forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "risk_level": "unknown",
+    "risk_description": "Нет данных о рисках для неизвестного биома.",
+    "risk_factors": [],
+    "timestamp": "2025-10-05T19:36:23.657241"
+  },
+  {
     "lat": 52.07157914247484,
     "lon": 85.34377077764107,
     "eco_name": "Kazakh forest steppe",

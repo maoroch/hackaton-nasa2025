@@ -41,8 +41,8 @@ export default function AsteroidsMath() {
   useEffect(() => {
     fetch("http://127.0.0.1:5000/api/asteroids/all")
       .then((res) => res.json())
-      .then((data: ApiResponse) => { // Изменено здесь
-        setAsteroids(data.asteroids); // Изменено здесь
+      .then((data: ApiResponse) => {
+        setAsteroids(data.asteroids);
         setLoading(false);
       })
       .catch((err) => {
@@ -51,40 +51,47 @@ export default function AsteroidsMath() {
       });
   }, []);
 
-  if (loading) return <p className="p-4">Загрузка астероидов...</p>;
+  if (loading) return <p className="p-4">Loading asteroids...</p>;
 
   return (
     <div className="p-4 space-y-4">
       {asteroids.map((a) => (
         <div
           key={a.name + a.date}
-          className="p-3 border rounded shadow-sm bg-gray-800 text-white"
+          className="p-4 border rounded-lg shadow-md bg-gray-800 text-white"
         >
-          <h3 className="font-semibold text-cyan-300">
+          <h3 className="font-bold text-cyan-300 text-lg mb-2">
             {a.name} ({a.date})
           </h3>
-          <p>
-            <strong>Потенциально опасный:</strong>{" "}
-            {a.is_potentially_hazardous_asteroid ? "Да" : "Нет"}
-          </p>
-          <p>
-            <strong>Диаметр (м):</strong>{" "}
-            {a.estimated_diameter.meters.estimated_diameter_min.toFixed(1)} -{" "}
-            {a.estimated_diameter.meters.estimated_diameter_max.toFixed(1)}
-          </p>
-          <p>
-            <strong>Скорость (км/с):</strong>{" "}
-            {a.relative_velocity.kilometers_per_second}
-          </p>
-          <p>
-            <strong>Кинетическая энергия (Дж):</strong>{" "}
-            {a.kinetic_energy_joules.toExponential(2)}
-          </p>
-          <p>
-            <strong>Кратер (м):</strong> {a.crater.diameter_m.toFixed(1)},{" "}
-            радиус выброса: {a.crater.dust_radius_m.toFixed(1)}, высота пыли:{" "}
-            {a.crater.dust_height_m.toFixed(1)}
-          </p>
+          <div className="space-y-1 text-sm">
+            <p>
+              <strong>Potentially hazardous:</strong>{" "}
+              {a.is_potentially_hazardous_asteroid ? "Yes" : "No"}
+            </p>
+            <p>
+              <strong>Diameter (m):</strong>{" "}
+              {a.estimated_diameter.meters.estimated_diameter_min.toFixed(1)} -{" "}
+              {a.estimated_diameter.meters.estimated_diameter_max.toFixed(1)}
+            </p>
+            <p>
+              <strong>Velocity (km/s):</strong>{" "}
+              {parseFloat(a.relative_velocity.kilometers_per_second).toFixed(2)}
+            </p>
+            <p>
+              <strong>Kinetic energy (J):</strong>{" "}
+              {a.kinetic_energy_joules.toExponential(2)}
+            </p>
+            <p>
+              <strong>Crater (m):</strong> {a.crater.diameter_m.toFixed(1)},
+            </p>
+            <p>
+                            {" "}<strong>ejecta radius:</strong> {a.crater.dust_radius_m.toFixed(1)},
+            </p>
+            <p>
+                            {" "}<strong>dust height:</strong> {a.crater.dust_height_m.toFixed(1)}
+
+            </p>
+          </div>
         </div>
       ))}
     </div>

@@ -13,63 +13,109 @@ CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:3000"])
 GEO_RESULTS_FILE = "geo_result.json"
 CUSTOM_ASTEROIDS_FILE = "custom_asteroids.json"
 
-
-# Добавьте в начало файла, после импортов
+# Обновленный словарь климатических рисков
 BIOME_RISKS = {
-    "Tropical & Subtropical Moist Broadleaf Forests": {
+    # Тропические и субтропические леса
+    "1": {
         "risk_level": "high",
-        "description": "Удар усугубит потерю биоразнообразия, засуху и сдвиги в растительности из-за повышения температуры и изменения осадков. Глобальное охлаждение от пыли может вызвать массовую гибель растений.",
-        "impact_factors": ["biodiversity loss", "drought", "ecosystem collapse"]
+        "description": "Удар усугубит потерю биоразнообразия, засуху и сдвиги в растительности. Глобальное охлаждение от пыли может вызвать массовую гибель растений.",
+        "impact_factors": ["biodiversity loss", "drought", "ecosystem collapse", "deforestation"]
     },
-    "Tundra": {
-        "risk_level": "high",
-        "description": "Таяние permafrost от пожаров и потепления, высвобождение метана (усиление парникового эффекта). Удар вызовет локальное разрушение и глобальное охлаждение.",
-        "impact_factors": ["permafrost melt", "methane release", "cooling from dust"]
+    "2": {
+        "risk_level": "medium",
+        "description": "Сухие лиственные леса уязвимы к пожарам и эрозии почвы. Удар может вызвать опустынивание и потерю плодородного слоя.",
+        "impact_factors": ["fires", "soil erosion", "desertification", "habitat loss"]
     },
-    "Temperate Forests": {
+    "3": {
+        "risk_level": "medium",
+        "description": "Хвойные леса чувствительны к температурным изменениям и пожарам. Удар может нарушить водный баланс региона.",
+        "impact_factors": ["temperature changes", "fires", "water cycle disruption"]
+    },
+    # Умеренные леса
+    "4": {
         "risk_level": "medium",
         "description": "Увеличение вредителей и болезней, изменения в осадках. Астероидный удар добавит пожары и эрозию почвы.",
-        "impact_factors": ["pests and diseases", "fires", "soil erosion"]
+        "impact_factors": ["pests and diseases", "fires", "soil erosion", "biodiversity loss"]
     },
-    "Mangroves": {
+    "5": {
+        "risk_level": "low",
+        "description": "Относительно устойчивые экосистемы. Основные риски - локальные пожары и изменения микроклимата.",
+        "impact_factors": ["local fires", "microclimate changes"]
+    },
+    # Засушливые регионы
+    "6": {
+        "risk_level": "low",
+        "description": "Пустынные экосистемы более устойчивы к ударам. Основной риск - долгосрочные пылевые бури.",
+        "impact_factors": ["dust storms", "temperature extremes"]
+    },
+    "7": {
+        "risk_level": "medium",
+        "description": "Полупустыни уязвимы к опустыниванию. Удар может разрушить хрупкий почвенный покров.",
+        "impact_factors": ["desertification", "soil degradation", "dust storms"]
+    },
+    # Затопленные луга
+    "8": {
         "risk_level": "high",
-        "description": "Угроза от повышения уровня моря и потепления. Удар может вызвать цунами и разрушение береговой защиты.",
-        "impact_factors": ["sea level rise", "coastal erosion", "tsunamis"]
+        "description": "Затопленные экосистемы критически важны для водного баланса. Удар может вызвать цунами и засоление почв.",
+        "impact_factors": ["tsunamis", "soil salinization", "wetland destruction"]
     },
-    # Добавьте другие биомы по необходимости, на основе biomes.geojson (BIOME поле)
+    "9": {
+        "risk_level": "medium",
+        "description": "Речные экосистемы чувствительны к изменениям гидрологического режима.",
+        "impact_factors": ["flooding", "river ecosystem disruption"]
+    },
+    # Горные биомы
+    "10": {
+        "risk_level": "high",
+        "description": "Горные экосистемы уязвимы к оползням и изменениям ледникового покрова.",
+        "impact_factors": ["landslides", "glacial melt", "avalanches"]
+    },
+    # Полярные регионы
+    "11": {
+        "risk_level": "critical",
+        "description": "Таяние permafrost от пожаров и потепления, высвобождение метана. Удар ускорит климатические изменения.",
+        "impact_factors": ["permafrost melt", "methane release", "sea level rise", "global warming"]
+    },
+    "12": {
+        "risk_level": "high",
+        "description": "Тундровые экосистемы крайне чувствительны. Удар может вызвать необратимые изменения.",
+        "impact_factors": ["permafrost degradation", "ecosystem collapse", "arctic amplification"]
+    },
+    # Средиземноморские регионы
+    "13": {
+        "risk_level": "medium",
+        "description": "Пожароопасные экосистемы. Удар увеличит риск масштабных лесных пожаров.",
+        "impact_factors": ["wildfires", "soil erosion", "biodiversity loss"]
+    },
+    # Океанические зоны
+    "14": {
+        "risk_level": "high",
+        "description": "Мангровые леса критически важны для береговой защиты. Удар может вызвать цунами и разрушение экосистемы.",
+        "impact_factors": ["tsunamis", "coastal erosion", "ecosystem collapse"]
+    },
+    "99": {
+        "risk_level": "medium",
+        "description": "Океанические экосистемы. Риск цунами, изменения кислотности океана, нарушение морских пищевых цепей.",
+        "impact_factors": ["tsunamis", "ocean acidification", "marine ecosystem disruption"]
+    },
+    # Сельскохозяйственные земли
+    "15": {
+        "risk_level": "high",
+        "description": "Сельскохозяйственные земли критически важны для продовольственной безопасности. Удар может вызвать глобальный продовольственный кризис.",
+        "impact_factors": ["food security crisis", "soil contamination", "crop failure"]
+    },
+    # Городские территории
+    "16": {
+        "risk_level": "critical",
+        "description": "Удар по городской территории вызовет массовые разрушения, пожары и гуманитарный кризис.",
+        "impact_factors": ["mass destruction", "fires", "humanitarian crisis", "infrastructure collapse"]
+    },
     "Unknown": {
         "risk_level": "unknown",
-        "description": "Нет данных о рисках для неизвестного биома.",
+        "description": "Нет данных о рисках для этого типа биома.",
         "impact_factors": []
     }
 }
-
-def find_biome(lat: float, lon: float):
-    if not biomes:
-        return {
-            "eco_name": "No biome data available",
-            "biome": "Unknown",
-            "realm": "Unknown",
-            "risk_level": "unknown",
-            "risk_description": "Нет данных о биоме.",
-            "risk_factors": []
-        }
-    point = Point(lon, lat)
-    for geom, eco_name, biome_code, realm in biomes:
-        if geom.contains(point):
-            # Ищем риск по biome_code или eco_name
-            biome_key = biome_code or eco_name or "Unknown"
-            risks = BIOME_RISKS.get(biome_key, BIOME_RISKS["Unknown"])
-            return {
-                "eco_name": eco_name,
-                "biome": biome_code,
-                "realm": realm,
-                "risk_level": risks["risk_level"],
-                "risk_description": risks["description"],
-                "risk_factors": risks["impact_factors"]
-            }
-    return BIOME_RISKS["Unknown"]
-
 
 # Загружаем данные астероидов NASA
 try:
@@ -93,12 +139,20 @@ try:
     with open("biomes.geojson", "r", encoding="utf-8") as f:
         biome_data = json.load(f)
     
-    # Подготавливаем данные биомов
     biomes = []
     for feature in biome_data["features"]:
         geom = shape(feature["geometry"])
         eco_name = feature["properties"].get("ECO_NAME", "Unknown")
         biome_code = feature["properties"].get("BIOME", "Unknown")
+        # Преобразуем biome_code в строку без десятичной части
+        try:
+            if isinstance(biome_code, (int, float)):
+                biome_code = str(int(biome_code))
+            else:
+                biome_code = str(biome_code).strip() if biome_code is not None else "Unknown"
+        except Exception as e:
+            print(f"❌ Ошибка преобразования BIOME для {eco_name}: {e}")
+            biome_code = "Unknown"
         realm = feature["properties"].get("REALM", "Unknown")
         biomes.append((geom, eco_name, biome_code, realm))
 except FileNotFoundError:
@@ -220,11 +274,10 @@ def create_custom_asteroid():
         dust_height = crater_diameter * 0.1
         is_hazardous = kinetic_energy_joules > 1e12
         
-        # ИСПРАВЛЕННЫЙ ID - убираем точку
         asteroid_id = f"custom-{int(datetime.now().timestamp() * 1000)}"
         
         custom_asteroid = {
-            "id": asteroid_id,  # Используем новый ID
+            "id": asteroid_id,
             "name": data["name"],
             "diameter": diameter,
             "density": density,
@@ -254,7 +307,6 @@ def create_custom_asteroid():
     except Exception as e:
         print(f"❌ Ошибка при создании астероида: {e}")
         return jsonify({"error": str(e)}), 500
-    
 
 @app.route("/api/asteroids/custom", methods=["GET"])
 def get_custom_asteroids():
@@ -354,10 +406,11 @@ def get_geo():
         "eco_name": biome_info["eco_name"],
         "biome": biome_info["biome"],
         "realm": biome_info["realm"],
-        "risk_level": biome_info["risk_level"],  # Новые поля
+        "risk_level": biome_info["risk_level"],
         "risk_description": biome_info["risk_description"],
         "risk_factors": biome_info["risk_factors"]
     }
+    print(f"📤 Ответ /geo: {result_data}")  # Отладочный лог
     save_geo_result(result_data)
     return jsonify(result_data)
 
@@ -428,23 +481,64 @@ def format_asteroid(a):
 
 def find_biome(lat: float, lon: float):
     if not biomes:
+        print(f"❌ Нет данных о биомах для lat={lat}, lon={lon}")
         return {
             "eco_name": "No biome data available",
             "biome": "Unknown",
-            "realm": "Unknown"
+            "realm": "Unknown",
+            "risk_level": "unknown",
+            "risk_description": "Нет данных о биоме.",
+            "risk_factors": []
         }
+    
     point = Point(lon, lat)
     for geom, eco_name, biome_code, realm in biomes:
         if geom.contains(point):
-            return {
-                "eco_name": eco_name,
-                "biome": biome_code,
-                "realm": realm
-            }
+            try:
+                # Преобразуем biome_code в строку, убирая десятичную часть, если это число
+                if isinstance(biome_code, (int, float)):
+                    biome_key = str(int(biome_code))
+                else:
+                    biome_key = str(biome_code).strip() if biome_code is not None else "Unknown"
+                
+                print(f"🔍 Проверка биома: lat={lat}, lon={lon}, biome_code={biome_code!r}, type={type(biome_code)}, biome_key={biome_key!r}, eco_name={eco_name!r}")
+                
+                # Проверяем, есть ли ключ в BIOME_RISKS
+                if biome_key in BIOME_RISKS:
+                    risks = BIOME_RISKS[biome_key]
+                    print(f"✅ Найден биом: biome_key={biome_key!r}, eco_name={eco_name!r}, risk_level={risks['risk_level']}")
+                else:
+                    risks = BIOME_RISKS["Unknown"]
+                    print(f"⚠️ Ключ не найден в BIOME_RISKS: biome_key={biome_key!r}, eco_name={eco_name!r}, возвращаем 'Unknown'")
+                    print(f"📋 Доступные ключи BIOME_RISKS: {list(BIOME_RISKS.keys())}")
+                
+                return {
+                    "eco_name": eco_name,
+                    "biome": biome_code,
+                    "realm": realm,
+                    "risk_level": risks["risk_level"],
+                    "risk_description": risks["description"],
+                    "risk_factors": risks["impact_factors"]
+                }
+            except Exception as e:
+                print(f"❌ Ошибка обработки biome_code: {biome_code}, error={e}")
+                return {
+                    "eco_name": eco_name,
+                    "biome": biome_code,
+                    "realm": realm,
+                    "risk_level": "unknown",
+                    "risk_description": f"Ошибка обработки биома: {str(e)}",
+                    "risk_factors": []
+                }
+    
+    print(f"❌ Биом не найден для lat={lat}, lon={lon}, предполагается океан")
     return {
-        "eco_name": "Unknown",
-        "biome": "Unknown",
-        "realm": "Unknown"
+        "eco_name": "Ocean",
+        "biome": "99",
+        "realm": "Oceanic",
+        "risk_level": BIOME_RISKS["99"]["risk_level"],
+        "risk_description": BIOME_RISKS["99"]["description"],
+        "risk_factors": BIOME_RISKS["99"]["impact_factors"]
     }
 
 if __name__ == "__main__":

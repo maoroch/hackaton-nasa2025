@@ -94,5 +94,53 @@
     "is_potentially_hazardous_asteroid": true,
     "created_at": "2025-10-05T19:21:45.380470",
     "is_custom": true
+  },
+  {
+    "id": "custom-1759680522246",
+    "name": "32423",
+    "diameter": 287,
+    "density": 3000,
+    "velocity": 17,
+    "angle": 45,
+    "mass_kg": 37133472798.18765,
+    "kinetic_energy_joules": 5.365786819338116e+18,
+    "crater_diameter": 4058.7929240107824,
+    "ejecta_radius": 4870.551508812939,
+    "dust_height": 405.87929240107826,
+    "is_potentially_hazardous_asteroid": true,
+    "created_at": "2025-10-05T21:08:42.246461",
+    "is_custom": true
+  },
+  {
+    "id": "custom-1759680582812",
+    "name": "32423",
+    "diameter": 321,
+    "density": 3000,
+    "velocity": 17,
+    "angle": 45,
+    "mass_kg": 51955912203.2766,
+    "kinetic_energy_joules": 7.50762931337347e+18,
+    "crater_diameter": 4539.625535217635,
+    "ejecta_radius": 5447.550642261162,
+    "dust_height": 453.96255352176354,
+    "is_potentially_hazardous_asteroid": true,
+    "created_at": "2025-10-05T21:09:42.812531",
+    "is_custom": true
+  },
+  {
+    "id": "custom-1759680989882",
+    "name": "53453",
+    "diameter": 388,
+    "density": 3000,
+    "velocity": 17,
+    "angle": 45,
+    "mass_kg": 91751897341.75223,
+    "kinetic_energy_joules": 1.3258149165883197e+19,
+    "crater_diameter": 5487.1486220076085,
+    "ejecta_radius": 6584.57834640913,
+    "dust_height": 548.7148622007609,
+    "is_potentially_hazardous_asteroid": true,
+    "created_at": "2025-10-05T21:16:29.882425",
+    "is_custom": true
   }
 ]
