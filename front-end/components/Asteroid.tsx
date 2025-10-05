@@ -1,16 +1,19 @@
-// Asteroid.tsx
+// Asteroid.tsx - ОСТАВЛЯЕМ только один обработчик клика
 "use client";
 
 import { useRef, useEffect, useMemo } from "react";
 import * as THREE from "three";
 import { useFrame, useThree, useLoader } from "@react-three/fiber";
 import { useAsteroid } from './context/AsteroidContext';
+import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry.js';
 
 interface AsteroidProps {
   earthMesh: THREE.Mesh | null;
+  onGeoDataReceived: (data: any) => void;
+  setImpactData: (data: any) => void;
 }
 
-const Asteroid = ({ earthMesh }: AsteroidProps) => {
+const Asteroid = ({ earthMesh, onGeoDataReceived, setImpactData }: AsteroidProps) => {
   const asteroidRef = useRef<THREE.Mesh>(null);
   const particlesRef = useRef<THREE.Points>(null);
   const dustRef = useRef<THREE.Points>(null);
@@ -18,12 +21,22 @@ const Asteroid = ({ earthMesh }: AsteroidProps) => {
   const { selectedAsteroid } = useAsteroid();
   const { camera, gl, scene } = useThree();
 
-  // Загрузка текстур
-  const [rockTexture, rockNormal, rockRoughness] = useLoader(THREE.TextureLoader, [
-    '/textures/asteroid/rock_diffuse.jpg',
-    '/textures/asteroid/rock_normal.jpg',
-    '/textures/asteroid/rock_roughness.jpg'
+  // Загрузка текстур для нового дизайна астероида
+  const [asteroidTexture, asteroidNormal, asteroidRoughness] = useLoader(THREE.TextureLoader, [
+    '/textures/asteroid/asteroid_diffuse.jpg',
+    '/textures/asteroid/asteroid_normal.jpg', 
+    '/textures/asteroid/asteroid_roughness.jpg'
   ]);
+
+  // Текстура для декали (кратера)
+  const craterTexture = useLoader(THREE.TextureLoader, '/textures/asteroid/crater_decal.png');
+
+  const cartesianToLatLon = (position: THREE.Vector3): { lat: number; lon: number } => {
+    const normalized = position.clone().normalize();
+    const lat = Math.asin(normalized.y) * (180 / Math.PI);
+    const lon = Math.atan2(normalized.z, normalized.x) * (180 / Math.PI);
+    return { lat, lon };
+  };
 
   // Состояния для управления анимацией
   const animationState = useRef({
@@ -46,9 +59,10 @@ const Asteroid = ({ earthMesh }: AsteroidProps) => {
     heatIntensity: 2.0
   };
 
-  // Создаем реалистичную геометрию астероида с неровностями
+  // Создаем более детализированную и угловатую геометрию астероида
   const asteroidGeometry = useMemo(() => {
-    const geometry = new THREE.SphereGeometry(0.5, 32, 32);
+    // Используем IcosahedronGeometry для более угловатой формы
+    const geometry = new THREE.IcosahedronGeometry(0.6, 2);
     
     // Добавляем случайные неровности для реалистичности
     const positionAttribute = geometry.attributes.position;
@@ -57,36 +71,52 @@ const Asteroid = ({ earthMesh }: AsteroidProps) => {
     for (let i = 0; i < positionAttribute.count; i++) {
       vertex.fromBufferAttribute(positionAttribute, i);
       
-      // Случайное смещение вершин для создания неровной поверхности
-      const noise = 0.1 + Math.random() * 0.2;
-      vertex.multiplyScalar(1 + noise * 0.3);
+      // Более агрессивный шум для угловатой формы
+      const noise = 0.2 + Math.random() * 0.4;
+      const distance = vertex.length();
+      vertex.normalize().multiplyScalar(distance * (1 + noise * 0.4));
       
       positionAttribute.setXYZ(i, vertex.x, vertex.y, vertex.z);
     }
     
     geometry.computeVertexNormals();
+    
+    // Добавляем displacement для большей детализации
+    const displacement = new Float32Array(positionAttribute.count);
+    for (let i = 0; i < displacement.length; i++) {
+      displacement[i] = Math.random() * 0.3;
+    }
+    geometry.setAttribute('displacement', new THREE.BufferAttribute(displacement, 1));
+    
     return geometry;
   }, []);
 
-  // Основной материал астероида
+  // Основной материал астероида - более темный и каменистый
   const asteroidMaterial = useMemo(() => new THREE.MeshStandardMaterial({
-    map: rockTexture,
-    normalMap: rockNormal,
-    roughnessMap: rockRoughness,
-    roughness: 0.9,
-    metalness: 0.1,
+    map: asteroidTexture,
+    normalMap: asteroidNormal,
+    roughnessMap: asteroidRoughness,
+    roughness: 0.95,
+    metalness: 0.05,
     transparent: true,
-    emissive: new THREE.Color(0x222222),
-    emissiveIntensity: 0.1
-  }), [rockTexture, rockNormal, rockRoughness]);
+    emissive: new THREE.Color(0x111111),
+    emissiveIntensity: 0.05,
+    bumpScale: 0.1
+  }), [asteroidTexture, asteroidNormal, asteroidRoughness]);
 
-  // Материал для свечения при нагреве
+  // Материал для свечения при нагреве - более интенсивный
   const glowMaterial = useMemo(() => new THREE.MeshBasicMaterial({
-    color: 0xff4500,
+    color: 0xff3300,
     transparent: true,
-    opacity: 0.3,
-    blending: THREE.AdditiveBlending
+    opacity: 0.4,
+    blending: THREE.AdditiveBlending,
+    side: THREE.BackSide
   }), []);
+
+  // Геометрия для свечения (немного больше астероида)
+  const glowGeometry = useMemo(() => {
+    return new THREE.IcosahedronGeometry(0.75, 1);
+  }, []);
 
   // Создаем геометрию для частиц хвоста
   const trailGeometry = useMemo(() => {
@@ -97,18 +127,17 @@ const Asteroid = ({ earthMesh }: AsteroidProps) => {
 
     for (let i = 0; i < params.trailLength; i++) {
       const i3 = i * 3;
-      // Начальные позиции будут обновляться
       positions[i3] = 0;
       positions[i3 + 1] = 0;
       positions[i3 + 2] = 0;
       
-      // Цвет от оранжевого к красному
-      colors[i3] = 1.0;     // R
-      colors[i3 + 1] = 0.5; // G
-      colors[i3 + 2] = 0.0; // B
+      // Более красный и интенсивный цвет хвоста
+      const intensity = 1 - (i / params.trailLength) * 0.5;
+      colors[i3] = 1.0 * intensity;
+      colors[i3 + 1] = 0.3 * intensity;
+      colors[i3 + 2] = 0.0;
       
-      // Размер уменьшается к концу хвоста
-      sizes[i] = 0.05 * (1 - i / params.trailLength);
+      sizes[i] = 0.08 * (1 - i / params.trailLength);
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -120,33 +149,40 @@ const Asteroid = ({ earthMesh }: AsteroidProps) => {
 
   // Материал для частиц хвоста
   const trailMaterial = useMemo(() => new THREE.PointsMaterial({
-    size: 0.05,
+    size: 0.08,
     vertexColors: true,
     transparent: true,
     blending: THREE.AdditiveBlending,
     sizeAttenuation: true,
-    opacity: 0.8
+    opacity: 0.9
   }), []);
 
   // Геометрия для пыли при ударе
   const dustGeometry = useMemo(() => {
     const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(200 * 3);
-    const velocities = new Float32Array(200 * 3);
+    const positions = new Float32Array(150 * 3);
+    const velocities = new Float32Array(150 * 3);
+    const colors = new Float32Array(150 * 3);
     
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 150; i++) {
       const i3 = i * 3;
       positions[i3] = 0;
       positions[i3 + 1] = 0;
       positions[i3 + 2] = 0;
       
-      // Случайные начальные скорости
-      velocities[i3] = (Math.random() - 0.5) * 0.2;
-      velocities[i3 + 1] = Math.random() * 0.3;
-      velocities[i3 + 2] = (Math.random() - 0.5) * 0.2;
+      // Более разнообразные скорости
+      velocities[i3] = (Math.random() - 0.5) * 0.3;
+      velocities[i3 + 1] = Math.random() * 0.4;
+      velocities[i3 + 2] = (Math.random() - 0.5) * 0.3;
+      
+      // Цвета пыли от серого до коричневого
+      colors[i3] = 0.6 + Math.random() * 0.2;
+      colors[i3 + 1] = 0.4 + Math.random() * 0.2;
+      colors[i3 + 2] = 0.2 + Math.random() * 0.2;
     }
     
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
     geometry.userData.velocities = velocities;
     
     return geometry;
@@ -154,11 +190,12 @@ const Asteroid = ({ earthMesh }: AsteroidProps) => {
 
   // Материал для пыли
   const dustMaterial = useMemo(() => new THREE.PointsMaterial({
-    color: 0x888888,
-    size: 0.03,
+    size: 0.04,
+    vertexColors: true,
     transparent: true,
-    opacity: 0.7,
-    blending: THREE.NormalBlending
+    opacity: 0.8,
+    blending: THREE.NormalBlending,
+    sizeAttenuation: true
   }), []);
 
   const raycaster = new THREE.Raycaster();
@@ -166,10 +203,8 @@ const Asteroid = ({ earthMesh }: AsteroidProps) => {
   const trailPositions = useRef(new Float32Array(params.trailLength * 3));
 
   const calculateStartPosition = (target: THREE.Vector3) => {
-    // Стартуем с фиксированной позиции над Землей с учетом размера астероида
     const start = new THREE.Vector3(20, 15, 15);
     
-    // Случайная ось вращения для реалистичности
     animationState.current.rotationAxis.set(
       Math.random() - 0.5,
       Math.random() - 0.5, 
@@ -182,7 +217,6 @@ const Asteroid = ({ earthMesh }: AsteroidProps) => {
   const updateTrail = (currentPos: THREE.Vector3) => {
     if (!particlesRef.current) return;
 
-    // Сдвигаем все позиции хвоста
     for (let i = params.trailLength - 1; i > 0; i--) {
       const i3 = i * 3;
       const prevI3 = (i - 1) * 3;
@@ -192,7 +226,6 @@ const Asteroid = ({ earthMesh }: AsteroidProps) => {
       trailPositions.current[i3 + 2] = trailPositions.current[prevI3 + 2];
     }
     
-    // Новая позиция в начале хвоста
     trailPositions.current[0] = currentPos.x;
     trailPositions.current[1] = currentPos.y;
     trailPositions.current[2] = currentPos.z;
@@ -200,48 +233,76 @@ const Asteroid = ({ earthMesh }: AsteroidProps) => {
     trailGeometry.attributes.position.needsUpdate = true;
   };
 
-  const createCrater = (position: THREE.Vector3, force: number) => {
-    const craterGroup = new THREE.Group();
+  // НОВАЯ ФУНКЦИЯ: Создание декали-кратера вместо сложной геометрии
+  const createCraterDecal = (position: THREE.Vector3, force: number, earthMesh: THREE.Mesh) => {
+    if (!earthMesh) return null;
+
+    // Нормализуем позицию для получения направления
+    const direction = position.clone().normalize();
     
-    // Основной кратер
-    const craterGeometry = new THREE.SphereGeometry(force * 0.3, 16, 16, 0, Math.PI * 2, 0, Math.PI * 0.5);
-    const craterMaterial = new THREE.MeshStandardMaterial({
-      color: 0x333333,
-      roughness: 1.0,
-      metalness: 0.0
+    // Создаем матрицу преобразования для декали
+    const size = new THREE.Vector3(force * 0.8, force * 0.8, force * 0.4);
+    const orientation = new THREE.Euler();
+    
+    // Вычисляем ориентацию относительно нормали поверхности Земли
+    const up = new THREE.Vector3(0, 1, 0);
+    const quaternion = new THREE.Quaternion();
+    quaternion.setFromUnitVectors(up, direction);
+    orientation.setFromQuaternion(quaternion);
+
+    // Создаем геометрию декали
+    const decalGeometry = new DecalGeometry(
+      earthMesh,
+      position,
+      orientation,
+      size
+    );
+
+    // Создаем материал для декали
+    const decalMaterial = new THREE.MeshStandardMaterial({
+      map: craterTexture,
+      transparent: true,
+      opacity: 0.9,
+      roughness: 0.9,
+      metalness: 0.1,
+      polygonOffset: true,
+      polygonOffsetFactor: -1 // Чтобы декаль была поверх Земли
     });
-    const crater = new THREE.Mesh(craterGeometry, craterMaterial);
-    crater.position.copy(position);
-    crater.scale.set(1, 0.3, 1);
-    craterGroup.add(crater);
 
-    // Обломки вокруг кратера
-    for (let i = 0; i < 15; i++) {
-      const debrisGeometry = new THREE.SphereGeometry(0.05 + Math.random() * 0.1, 6, 6);
-      const debrisMaterial = new THREE.MeshStandardMaterial({
-        color: 0x666666,
-        roughness: 0.8
-      });
-      const debris = new THREE.Mesh(debrisGeometry, debrisMaterial);
-      
-      const angle = Math.random() * Math.PI * 2;
-      const distance = 0.5 + Math.random() * force * 0.5;
-      debris.position.set(
-        position.x + Math.cos(angle) * distance,
-        position.y + Math.random() * 0.2,
-        position.z + Math.sin(angle) * distance
-      );
-      
-      craterGroup.add(debris);
-    }
-
-    scene.add(craterGroup);
-    return craterGroup;
+    // Создаем меш декали
+    const decalMesh = new THREE.Mesh(decalGeometry, decalMaterial);
+    decalMesh.name = 'crater-decal';
+    
+    // Добавляем в сцену
+    scene.add(decalMesh);
+    
+    return decalMesh;
   };
 
-  const handleClick = (event: MouseEvent) => {
-    if (!earthMesh || !selectedAsteroid) {
-      console.log("❌ Earth mesh or asteroid not available");
+  // Функция для форматирования массы
+  const formatMass = (massKg: number | undefined): string => {
+    if (massKg === undefined || massKg === null || isNaN(massKg)) {
+      return "Неизвестно";
+    }
+    
+    if (massKg >= 1e12) {
+      return `${(massKg / 1e12).toFixed(2)} млрд тонн`;
+    } else if (massKg >= 1e9) {
+      return `${(massKg / 1e9).toFixed(2)} млн тонн`;
+    } else if (massKg >= 1e6) {
+      return `${(massKg / 1e6).toFixed(2)} тыс. тонн`;
+    } else if (massKg >= 1e3) {
+      return `${(massKg / 1e3).toFixed(2)} тонн`;
+    } else {
+      return `${massKg.toFixed(2)} кг`;
+    }
+  };
+
+  const handleClick = async (event: MouseEvent) => {
+    if (!earthMesh || !selectedAsteroid || animationState.current.isMoving) {
+      if (!selectedAsteroid) {
+        console.log("❌ Сначала выберите астероид из списка!");
+      }
       return;
     }
 
@@ -254,11 +315,13 @@ const Asteroid = ({ earthMesh }: AsteroidProps) => {
     
     if (intersects.length > 0) {
       const point = intersects[0].point;
-      
+      const latLon = cartesianToLatLon(point);
+      console.log("🎯 Запуск астероида к точке:", point, "Координаты:", latLon);
+
       // Рассчитываем силу удара на основе характеристик астероида
       const diameter = selectedAsteroid.estimated_diameter.meters.estimated_diameter_min;
       const velocity = parseFloat(selectedAsteroid.relative_velocity.kilometers_per_second);
-      const impactForce = (diameter / 100) * (velocity / 10);
+      const impactForce = Math.min((diameter / 100) * (velocity / 10), 3.0); // Ограничиваем максимальную силу
       
       animationState.current.targetPoint = point.clone();
       animationState.current.startPosition = calculateStartPosition(point);
@@ -268,7 +331,7 @@ const Asteroid = ({ earthMesh }: AsteroidProps) => {
       animationState.current.isMoving = true;
 
       // Настраиваем размер астероида в зависимости от диаметра
-      const scale = Math.min(diameter / 50, 2.0); // Ограничиваем максимальный размер
+      const scale = Math.min(diameter / 80, 1.5); // Меньший масштаб для угловатой формы
       if (asteroidRef.current) {
         asteroidRef.current.scale.setScalar(scale);
         asteroidRef.current.position.copy(animationState.current.startPosition);
@@ -277,14 +340,14 @@ const Asteroid = ({ earthMesh }: AsteroidProps) => {
       }
 
       if (glowRef.current) {
-        glowRef.current.scale.setScalar(scale * 1.5);
+        glowRef.current.scale.setScalar(scale * 1.3);
         glowRef.current.visible = true;
-        glowMaterial.opacity = 0.3;
+        glowMaterial.opacity = 0.4;
       }
 
       if (particlesRef.current) {
         particlesRef.current.visible = true;
-        trailMaterial.opacity = 0.8;
+        trailMaterial.opacity = 0.9;
       }
 
       if (dustRef.current) {
@@ -299,6 +362,51 @@ const Asteroid = ({ earthMesh }: AsteroidProps) => {
         trailPositions.current[i3 + 2] = animationState.current.startPosition.z;
       }
       trailGeometry.attributes.position.needsUpdate = true;
+
+      // Устанавливаем данные для модального окна удара
+      const impactData = {
+  name: selectedAsteroid.name,
+  coordinates: latLon,
+  mass: formatMass(selectedAsteroid.mass_kg),
+  diameter: `${selectedAsteroid.estimated_diameter.meters.estimated_diameter_min.toFixed(2)} м`,
+  velocity: `${parseFloat(selectedAsteroid.relative_velocity.kilometers_per_second).toFixed(2)} км/с`,
+  kinetic_energy: selectedAsteroid.kinetic_energy_joules ? 
+    `${selectedAsteroid.kinetic_energy_joules.toExponential(2)} Дж` : "Неизвестно",
+  crater: { // Всегда создаем объект crater
+    diameter: `${(impactForce * 0.8).toFixed(1)} км`,
+    dust_radius: `${(impactForce * 1.5).toFixed(1)} км`,
+    dust_height: `${(impactForce * 0.3).toFixed(1)} км`
+  },
+  is_hazardous: selectedAsteroid.is_potentially_hazardous_asteroid
+};
+
+      
+      setImpactData(impactData);
+
+      // Получаем геоданные
+      try {
+        const response = await fetch(`http://127.0.0.1:5000/geo?lat=${latLon.lat}&lon=${latLon.lon}`);
+        const data = await response.json();
+        console.log("📍 Ответ OSM:", data);
+        
+        // Передаем данные в модальное окно
+        onGeoDataReceived({
+          lat: latLon.lat,
+          lon: latLon.lon,
+          eco_name: data.eco_name || "Unknown",
+          biome: data.biome || "Unknown",
+          realm: data.realm || "Unknown"
+        });
+      } catch (err) {
+        console.error("Ошибка запроса:", err);
+        onGeoDataReceived({
+          lat: latLon.lat,
+          lon: latLon.lon,
+          eco_name: "Data not available",
+          biome: "Data not available",
+          realm: "Data not available"
+        });
+      }
     }
   };
 
@@ -307,7 +415,7 @@ const Asteroid = ({ earthMesh }: AsteroidProps) => {
     return () => {
       gl.domElement.removeEventListener("click", handleClick);
     };
-  }, [gl, earthMesh, scene, selectedAsteroid]);
+  }, [gl, earthMesh, selectedAsteroid, onGeoDataReceived, setImpactData]);
 
   useFrame((state) => {
     const stateRef = animationState.current;
@@ -318,50 +426,42 @@ const Asteroid = ({ earthMesh }: AsteroidProps) => {
       stateRef.time += params.speed;
       
       if (stateRef.time <= 1) {
-        // Квадратичная интерполяция для более естественного движения
         const progress = stateRef.time * stateRef.time;
         const currentPos = new THREE.Vector3();
         currentPos.lerpVectors(stateRef.startPosition, stateRef.targetPoint, progress);
         
         asteroidRef.current.position.copy(currentPos);
-        
-        // Вращение вокруг случайной оси
         asteroidRef.current.rotateOnAxis(stateRef.rotationAxis, params.rotationSpeed);
-        
-        // Обновляем хвост
         updateTrail(currentPos);
 
-        // Эффект нагрева при приближении к Земле
         const distanceToCenter = currentPos.length();
         const heatFactor = Math.max(0, 1 - distanceToCenter / 10);
         
         if (heatFactor > 0.3) {
           const heatIntensity = heatFactor * params.heatIntensity;
-          asteroidMaterial.emissive.setRGB(heatIntensity, heatIntensity * 0.5, 0);
-          asteroidMaterial.emissiveIntensity = heatIntensity * 0.3;
+          asteroidMaterial.emissive.setRGB(heatIntensity, heatIntensity * 0.3, 0);
+          asteroidMaterial.emissiveIntensity = heatIntensity * 0.4;
           
           if (glowRef.current) {
-            glowMaterial.opacity = heatIntensity * 0.4;
-            glowMaterial.color.setRGB(heatIntensity, heatIntensity * 0.3, 0);
+            glowMaterial.opacity = heatIntensity * 0.5;
+            glowMaterial.color.setRGB(heatIntensity, heatIntensity * 0.2, 0);
           }
         }
 
-        // Проверка столкновения
-        if (distanceToCenter < 5.3) {
+        if (distanceToCenter < 8.3) { // Земля радиус 8 + астероид радиус 0.3
           console.log("💥 COLLISION! Impact force:", stateRef.impactForce);
           stateRef.isMoving = false;
           stateRef.fadeStartTime = state.clock.getElapsedTime();
           
-          // Создаем кратер
-          createCrater(stateRef.targetPoint, stateRef.impactForce);
+          // ИСПОЛЬЗУЕМ ДЕКАЛЬ ВМЕСТО СЛОЖНОГО КРАТЕРА
+          createCraterDecal(stateRef.targetPoint, stateRef.impactForce, earthMesh);
           
-          // Активируем пыль
           if (dustRef.current) {
             dustRef.current.visible = true;
             const positions = dustGeometry.attributes.position.array as Float32Array;
             const velocities = dustGeometry.userData.velocities as Float32Array;
             
-            for (let i = 0; i < 200; i++) {
+            for (let i = 0; i < 150; i++) {
               const i3 = i * 3;
               positions[i3] = stateRef.targetPoint.x;
               positions[i3 + 1] = stateRef.targetPoint.y;
@@ -377,24 +477,20 @@ const Asteroid = ({ earthMesh }: AsteroidProps) => {
       }
     }
 
-    // Анимация пыли после удара
     if (dustRef.current?.visible) {
       const positions = dustGeometry.attributes.position.array as Float32Array;
       const velocities = dustGeometry.userData.velocities as Float32Array;
       
-      for (let i = 0; i < 200; i++) {
+      for (let i = 0; i < 150; i++) {
         const i3 = i * 3;
         positions[i3] += velocities[i3];
         positions[i3 + 1] += velocities[i3 + 1];
         positions[i3 + 2] += velocities[i3 + 2];
-        
-        // Гравитация
-        velocities[i3 + 1] -= 0.001;
+        velocities[i3 + 1] -= 0.002; // Увеличиваем гравитацию
       }
       dustGeometry.attributes.position.needsUpdate = true;
     }
 
-    // Fade out после столкновения
     if (!stateRef.isMoving && stateRef.fadeOpacity > 0) {
       const elapsed = state.clock.getElapsedTime() - stateRef.fadeStartTime;
       stateRef.fadeOpacity = Math.max(0, 1 - elapsed / params.fadeDuration);
@@ -415,7 +511,6 @@ const Asteroid = ({ earthMesh }: AsteroidProps) => {
 
   return (
     <>
-      {/* Основной астероид */}
       <mesh 
         ref={asteroidRef} 
         geometry={asteroidGeometry} 
@@ -423,24 +518,18 @@ const Asteroid = ({ earthMesh }: AsteroidProps) => {
         visible={false}
         castShadow
       />
-      
-      {/* Свечение при нагреве */}
       <mesh 
         ref={glowRef} 
-        geometry={asteroidGeometry} 
+        geometry={glowGeometry} 
         material={glowMaterial} 
         visible={false}
       />
-      
-      {/* Хвост из частиц */}
       <points 
         ref={particlesRef} 
         geometry={trailGeometry} 
         material={trailMaterial} 
         visible={false}
       />
-      
-      {/* Пыль при ударе */}
       <points 
         ref={dustRef} 
         geometry={dustGeometry} 

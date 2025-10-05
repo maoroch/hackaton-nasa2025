@@ -1,5 +1,133 @@
 [
   {
+    "lat": 57.050440101265856,
+    "lon": 114.78756343310076,
+    "eco_name": "East Siberian taiga",
+    "biome": 6.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T16:28:05.955342"
+  },
+  {
+    "lat": 42.888388837916615,
+    "lon": 83.48867820071195,
+    "eco_name": "Tian Shan montane steppe and meadows",
+    "biome": 10.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T16:27:28.114450"
+  },
+  {
+    "lat": 32.31016631165282,
+    "lon": 87.65107159577148,
+    "eco_name": "Central Tibetan Plateau alpine steppe",
+    "biome": 10.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T16:27:04.702152"
+  },
+  {
+    "lat": 40.975502853745645,
+    "lon": 67.52626954501208,
+    "eco_name": "Alai-Western Tian Shan steppe",
+    "biome": 8.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T16:26:53.256599"
+  },
+  {
+    "lat": 32.72511004094191,
+    "lon": 81.25629988575852,
+    "eco_name": "Central Tibetan Plateau alpine steppe",
+    "biome": 10.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T16:25:54.687486"
+  },
+  {
+    "lat": 30.864465644285264,
+    "lon": 77.9483156645774,
+    "eco_name": "Western Himalayan broadleaf forests",
+    "biome": 4.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T16:25:19.307027"
+  },
+  {
+    "lat": 23.581767891757714,
+    "lon": 79.29250632392807,
+    "eco_name": "Narmada Valley dry deciduous forests",
+    "biome": 2.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T16:23:49.720383"
+  },
+  {
+    "lat": 45.30591944590763,
+    "lon": 73.87436335373998,
+    "eco_name": "Lake",
+    "biome": 98.0,
+    "realm": null,
+    "timestamp": "2025-10-05T16:19:25.224029"
+  },
+  {
+    "lat": 30.041037209092877,
+    "lon": 79.91659389116535,
+    "eco_name": "Western Himalayan broadleaf forests",
+    "biome": 4.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T16:19:12.655600"
+  },
+  {
+    "lat": 67.30833533298981,
+    "lon": -53.26643832934674,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T16:05:12.672778"
+  },
+  {
+    "lat": 51.14253826230452,
+    "lon": -34.06535067684028,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T16:05:01.369245"
+  },
+  {
+    "lat": 42.35312051644742,
+    "lon": 2.4010976052660347,
+    "eco_name": "Pyrenees conifer and mixed forests",
+    "biome": 4.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T16:04:51.872582"
+  },
+  {
+    "lat": 33.65008897811244,
+    "lon": 10.312624218082277,
+    "eco_name": "Mediterranean woodlands and forests",
+    "biome": 12.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T16:04:38.821461"
+  },
+  {
+    "lat": 50.40217605407592,
+    "lon": 61.93293175751582,
+    "eco_name": "Kazakh steppe",
+    "biome": 8.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T16:04:32.884338"
+  },
+  {
+    "lat": 30.545624456898334,
+    "lon": 65.47178930858504,
+    "eco_name": "Registan-North Pakistan sandy desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T16:01:45.272173"
+  },
+  {
+    "lat": 25.455222,
+    "lon": 207.323047,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T15:49:56.223183"
+  },
+  {
     "lat": 34.576572,
     "lon": 160.623953,
     "eco_name": "Unknown",

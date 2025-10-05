@@ -52,7 +52,7 @@ const AsteroidImpactModal = ({ isOpen, onClose, impactData }: AsteroidImpactModa
         // Плавное появление
         setOpacity(1);
         setScale(1);
-      }, 2000);
+      }, 4000);
 
       // Начало исчезновения через 6 секунд после появления
       const fadeOutTimeout = setTimeout(() => {
