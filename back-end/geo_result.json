@@ -1,5 +1,20 @@
 [
   {
+    "lat": 15.125537137810998,
+    "lon": 77.51724711965066,
+    "eco_name": "Deccan thorn scrub forests",
+    "biome": "13",
+    "realm": "IM",
+    "risk_level": "medium",
+    "risk_description": "Пожароопасные экосистемы. Удар увеличит риск масштабных лесных пожаров.",
+    "risk_factors": [
+      "wildfires",
+      "soil erosion",
+      "biodiversity loss"
+    ],
+    "timestamp": "2025-10-05T21:19:20.134961"
+  },
+  {
     "lat": 46.13080472374854,
     "lon": 93.00523807603626,
     "eco_name": "Altai montane forest and forest steppe",
