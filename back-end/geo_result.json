@@ -1,5 +1,67 @@
 [
   {
+    "lat": 26.053111409786013,
+    "lon": 78.83743933758764,
+    "eco_name": "Upper Gangetic Plains moist deciduous forests",
+    "biome": "1",
+    "realm": "IM",
+    "risk_level": "high",
+    "risk_description": "Удар усугубит потерю биоразнообразия, засуху и сдвиги в растительности. Глобальное охлаждение от пыли может вызвать массовую гибель растений.",
+    "risk_factors": [
+      "biodiversity loss",
+      "drought",
+      "ecosystem collapse",
+      "deforestation"
+    ],
+    "timestamp": "2025-10-05T21:31:52.269152"
+  },
+  {
+    "lat": 28.406504541516835,
+    "lon": 67.23044576919037,
+    "eco_name": "Baluchistan xeric woodlands",
+    "biome": "13",
+    "realm": "PA",
+    "risk_level": "medium",
+    "risk_description": "Пожароопасные экосистемы. Удар увеличит риск масштабных лесных пожаров.",
+    "risk_factors": [
+      "wildfires",
+      "soil erosion",
+      "biodiversity loss"
+    ],
+    "timestamp": "2025-10-05T21:31:32.596774"
+  },
+  {
+    "lat": 6.985028930013409,
+    "lon": 80.17088948807732,
+    "eco_name": "Sri Lanka lowland rain forests",
+    "biome": "1",
+    "realm": "IM",
+    "risk_level": "high",
+    "risk_description": "Удар усугубит потерю биоразнообразия, засуху и сдвиги в растительности. Глобальное охлаждение от пыли может вызвать массовую гибель растений.",
+    "risk_factors": [
+      "biodiversity loss",
+      "drought",
+      "ecosystem collapse",
+      "deforestation"
+    ],
+    "timestamp": "2025-10-05T21:31:22.211367"
+  },
+  {
+    "lat": 16.030289023335097,
+    "lon": -81.24386986041762,
+    "eco_name": "Ocean",
+    "biome": "99",
+    "realm": "Oceanic",
+    "risk_level": "medium",
+    "risk_description": "Океанические экосистемы. Риск цунами, изменения кислотности океана, нарушение морских пищевых цепей.",
+    "risk_factors": [
+      "tsunamis",
+      "ocean acidification",
+      "marine ecosystem disruption"
+    ],
+    "timestamp": "2025-10-05T21:31:13.897179"
+  },
+  {
     "lat": 15.125537137810998,
     "lon": 77.51724711965066,
     "eco_name": "Deccan thorn scrub forests",

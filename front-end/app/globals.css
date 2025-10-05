@@ -92,3 +92,8 @@ body {
   border: 2px solid white;
   box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
 }
+
+#next-logo {
+  display: none !important;
+  opacity: 0 !important;
+}

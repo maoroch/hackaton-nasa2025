@@ -1,9 +1,15 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    // Отключаем dev overlay
+    reactRefresh: false,
+  },
+  // Или для более новых версий
+  devIndicators: {
+    appIsrStatus: false,
+  }
+}
 
-export default nextConfig;
-
-
+module.exports = nextConfig

@@ -142,5 +142,21 @@
     "is_potentially_hazardous_asteroid": true,
     "created_at": "2025-10-05T21:16:29.882425",
     "is_custom": true
+  },
+  {
+    "id": "custom-1759681847883",
+    "name": "32423",
+    "diameter": 100,
+    "density": 3000,
+    "velocity": 17,
+    "angle": 45,
+    "mass_kg": 1570796326.7948964,
+    "kinetic_energy_joules": 2.2698006922186253e+17,
+    "crater_diameter": 1414.2135623730949,
+    "ejecta_radius": 1697.056274847714,
+    "dust_height": 141.42135623730948,
+    "is_potentially_hazardous_asteroid": true,
+    "created_at": "2025-10-05T21:30:47.883266",
+    "is_custom": true
   }
 ]
