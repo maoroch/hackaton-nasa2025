@@ -3,11 +3,10 @@
 
 import React, { useEffect, useState } from "react";
 import { useAsteroid } from './context/AsteroidContext';
-import { Asteroid } from './asteroid'; // Импортируем тип
+import { Asteroid } from './types/typesAsteroid'; // Импортируем тип
 
 // УДАЛИТЕ этот дублированный интерфейс - используем из контекста
 // export interface Asteroid { ... }
-
 
 interface ApiResponse {
   count: number;
@@ -33,17 +32,109 @@ const formatMass = (massKg: number | undefined): string => {
   }
 };
 
-// УДАЛИТЕ этот интерфейс - больше не нужен
-// interface AsteroidsListProps {
-//   onAsteroidSelect: (asteroid: Asteroid) => void;
-// }
-
-const AsteroidsList: React.FC = () => { // Убрали пропсы
+// Утилита для расчета визуального размера астероида
+const getAsteroidDisplaySize = (diameterMeters: number): number => {
+  // Логарифмическое масштабирование для лучшего визуального отображения
+  // Реальные диаметры: от 1м до 1000м (1км)
+  // Визуальные размеры: от 8px до 120px
   
+  const minRealSize = 1; // 1 метр
+  const maxRealSize = 1000; // 1 километр
+  const minDisplaySize = 8; // пикселей
+  const maxDisplaySize = 120; // пикселей
+  
+  // Логарифмическое масштабирование
+  const logMin = Math.log(minRealSize);
+  const logMax = Math.log(maxRealSize);
+  const logValue = Math.log(Math.max(diameterMeters, minRealSize));
+  
+  const normalized = (logValue - logMin) / (logMax - logMin);
+  return minDisplaySize + normalized * (maxDisplaySize - minDisplaySize);
+};
+
+// Утилита для расчета цвета астероида
+const getAsteroidColor = (diameter: number, isHazardous: boolean): string => {
+  // Цвет зависит от размера и опасности
+  const sizeFactor = Math.min(diameter / 500, 1);
+  
+  if (isHazardous) {
+    // Опасные - красные оттенки
+    const red = 200 + Math.floor(sizeFactor * 55);
+    const green = 100 - Math.floor(sizeFactor * 80);
+    const blue = 100 - Math.floor(sizeFactor * 80);
+    return `rgb(${red}, ${green}, ${blue})`;
+  } else {
+    // Безопасные - синие/зеленые оттенки
+    const red = 100 + Math.floor(sizeFactor * 50);
+    const green = 150 + Math.floor(sizeFactor * 50);
+    const blue = 200 - Math.floor(sizeFactor * 50);
+    return `rgb(${red}, ${green}, ${blue})`;
+  }
+};
+
+// Компонент для визуализации астероида
+const AsteroidVisual = ({ asteroid, isSelected }: { asteroid: Asteroid, isSelected: boolean }) => {
+  const displaySize = getAsteroidDisplaySize(
+    asteroid.estimated_diameter.meters.estimated_diameter_min
+  );
+  const asteroidColor = getAsteroidColor(
+    asteroid.estimated_diameter.meters.estimated_diameter_min,
+    asteroid.is_potentially_hazardous_asteroid
+  );
+
+  return (
+    <div className="flex items-center space-x-4 mb-4">
+      {/* Визуализация астероида */}
+      <div
+        className="relative flex-shrink-0 rounded-full transition-all duration-300 ease-out"
+        style={{
+          width: `${displaySize}px`,
+          height: `${displaySize}px`,
+          background: `radial-gradient(circle at 30% 30%, ${asteroidColor}, ${asteroidColor}dd)`,
+          boxShadow: `
+            inset -${displaySize * 0.1}px -${displaySize * 0.05}px ${displaySize * 0.2}px rgba(255,255,255,0.3),
+            inset ${displaySize * 0.1}px ${displaySize * 0.05}px ${displaySize * 0.2}px rgba(0,0,0,0.5),
+            0 0 ${displaySize * 0.3}px ${asteroidColor}80,
+            ${isSelected ? '0 0 20px #00ffff, 0 0 30px #00ffff80' : 'none'}
+          `,
+          border: isSelected ? '2px solid #00ffff' : 'none'
+        }}
+      >
+        {/* Кратеры на поверхности */}
+        <div className="absolute top-1/4 left-1/4 w-1 h-1 bg-gray-800/50 rounded-full"></div>
+        <div className="absolute top-1/3 right-1/3 w-1.5 h-1.5 bg-gray-900/60 rounded-full"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-1 h-1 bg-gray-700/40 rounded-full"></div>
+        
+        {/* Индикатор выбора */}
+        {isSelected && (
+          <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full animate-pulse"></div>
+        )}
+      </div>
+
+      {/* Основная информация */}
+      <div className="flex-1 min-w-0">
+        <h3 className="font-orbitron text-xl text-cyan-400 truncate">
+          {asteroid.name}
+          {isSelected && (
+            <span className="ml-2 text-sm text-green-400">✓ Выбран</span>
+          )}
+        </h3>
+        <p className="text-gray-400 text-sm font-space-mono">
+          Ø {asteroid.estimated_diameter.meters.estimated_diameter_min.toFixed(1)} м
+          {asteroid.is_potentially_hazardous_asteroid && (
+            <span className="ml-2 text-red-400">⚠️ Опасен</span>
+          )}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+const AsteroidsList: React.FC = () => {
   const [asteroids, setAsteroids] = useState<Asteroid[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { selectedAsteroid, setSelectedAsteroid } = useAsteroid(); // Используем контекст
+  const { selectedAsteroid, setSelectedAsteroid } = useAsteroid();
 
   useEffect(() => {
     const fetchAsteroids = async () => {
@@ -67,10 +158,8 @@ const AsteroidsList: React.FC = () => { // Убрали пропсы
   }, []);
 
   const handleAsteroidClick = (asteroid: Asteroid) => {
-    // ОБНОВЛЯЕМ ГЛОБАЛЬНОЕ СОСТОЯНИЕ через контекст
     setSelectedAsteroid(asteroid);
     
-    // Логируем в консоль все данные астероида
     console.log("🎯 Выбран астероид для удара:", {
       name: asteroid.name,
       масса: formatMass(asteroid.mass_kg),
@@ -136,12 +225,13 @@ const AsteroidsList: React.FC = () => { // Убрали пропсы
               }`}
               onClick={() => handleAsteroidClick(a)}
             >
-              <h3 className="font-orbitron text-xl mb-2 text-cyan-400">
-                {a.name}
-                {selectedAsteroid?.name === a.name && (
-                  <span className="ml-2 text-sm text-green-400">✓ Выбран</span>
-                )}
-              </h3>
+              {/* Визуализация астероида */}
+              <AsteroidVisual 
+                asteroid={a} 
+                isSelected={selectedAsteroid?.name === a.name}
+              />
+
+              {/* Детальная информация */}
               <div className="space-y-2 font-inter text-gray-300">
                 <p className="flex items-center">
                   <span className="w-40 text-gray-400">Дата сближения:</span>

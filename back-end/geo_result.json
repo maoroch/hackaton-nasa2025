@@ -1,5 +1,141 @@
 [
   {
+    "lat": 34.576572,
+    "lon": 160.623953,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T14:23:27.866750"
+  },
+  {
+    "lat": 36.409894,
+    "lon": 123.715183,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T14:23:17.771681"
+  },
+  {
+    "lat": 36.579181,
+    "lon": 93.982624,
+    "eco_name": "Qaidam Basin semi-desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T14:22:56.880818"
+  },
+  {
+    "lat": 17.56768,
+    "lon": 89.408836,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T14:22:54.860683"
+  },
+  {
+    "lat": 7.75328649126736,
+    "lon": 144.08754145929416,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T14:19:48.475132"
+  },
+  {
+    "lat": 23.475863032887403,
+    "lon": 100.42586537154712,
+    "eco_name": "Northern Indochina subtropical forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T14:19:42.291640"
+  },
+  {
+    "lat": 26.711840084326795,
+    "lon": 96.8344075697094,
+    "eco_name": "Northern Triangle subtropical forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T14:19:01.072920"
+  },
+  {
+    "lat": 26.03478025650822,
+    "lon": 93.95586304135665,
+    "eco_name": "Brahmaputra Valley semi-evergreen forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T14:17:43.507420"
+  },
+  {
+    "lat": 22.902409121655168,
+    "lon": 100.8952880229998,
+    "eco_name": "Northern Indochina subtropical forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T14:17:37.500585"
+  },
+  {
+    "lat": 25.31087934942323,
+    "lon": 103.28588909579656,
+    "eco_name": "Yunnan Plateau subtropical evergreen forests",
+    "biome": 1.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T14:15:11.146400"
+  },
+  {
+    "lat": 10.489986155322498,
+    "lon": 81.98366938898342,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T14:15:09.229178"
+  },
+  {
+    "lat": 23.07150691693765,
+    "lon": 100.00921288158362,
+    "eco_name": "Northern Indochina subtropical forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T14:14:51.067698"
+  },
+  {
+    "lat": 54.59016558029432,
+    "lon": 97.19274899397085,
+    "eco_name": "Sayan montane conifer forests",
+    "biome": 5.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T14:13:00.326919"
+  },
+  {
+    "lat": 42.98696113239671,
+    "lon": 96.11972302797714,
+    "eco_name": "Alashan Plateau semi-desert",
+    "biome": 13.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T14:12:54.304846"
+  },
+  {
+    "lat": 48.40527588004076,
+    "lon": 110.6412938302091,
+    "eco_name": "Daurian forest steppe",
+    "biome": 8.0,
+    "realm": "PA",
+    "timestamp": "2025-10-05T14:12:52.124938"
+  },
+  {
+    "lat": 23.509653955593876,
+    "lon": 99.8136111724737,
+    "eco_name": "Northern Indochina subtropical forests",
+    "biome": 1.0,
+    "realm": "IM",
+    "timestamp": "2025-10-05T14:12:50.122698"
+  },
+  {
+    "lat": -16.708778179454498,
+    "lon": 95.06516156348091,
+    "eco_name": "Unknown",
+    "biome": "Unknown",
+    "realm": "Unknown",
+    "timestamp": "2025-10-05T14:12:47.776003"
+  },
+  {
     "lat": 30.439698719598347,
     "lon": 93.99085400982696,
     "eco_name": "Northeastern Himalayan subalpine conifer forests",
